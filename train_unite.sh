@@ -25,13 +25,15 @@ tar xzf step1_download_PlutoF/C5547B97AAA979E45F79DC4C8C4B12113389343D7588716B5A
 
 
 #Move into the developer directory for one project
-cd download_PlutoF/sh_qiime_release_10.05.2021/
+## Wildcards: output folder
+cd step2_extract/sh_qiime_release_10.05.2021/developer/
 
 #Fix formatting errors that prevent importation of the reference sequences into QIIME2. 
 #There are white spaces that interfere, and possibly some lower case letters that need to be converted to upper case.
 # Related blog post: https://john-quensen.com/tutorials/training-the-qiime2-classifier-with-unite-its-reference-sequences/
-awk '/^>/ {print($0)}; /^[^>]/ {print(toupper($0))}' sh_refs_qiime_ver8_99_04.02.2020_dev.fasta | \
-	 tr -d ' ' > sh_refs_qiime_ver8_99_04.02.2020_dev_uppercase.fasta
+## Wildcards: output folder, percent ID, date
+awk '/^>/ {print($0)}; /^[^>]/ {print(toupper($0))}' step2_extract/sh_qiime_release_10.05.2021/developer/sh_refs_qiime_ver8_99_10.05.2021_dev.fasta | \
+	 tr -d ' ' > step3_reformat/sh_refs_qiime_ver8_99_10.05.2021_dev.fasta
 
 # Explicitely activate a Qiime2 conda environment
 conda activate qiime2-2021.11
@@ -39,21 +41,21 @@ conda activate qiime2-2021.11
 # Import the UNITE reference sequences into QIIME2.
 qiime tools import \
 	--type FeatureData[Sequence] \
-	--input-path sh_refs_qiime_ver8_99_04.02.2020_dev_uppercase.fasta \
-	--output-path unite-ver8-seqs_99_04.02.2020.qza
+	--input-path  step3_reformat/sh_refs_qiime_ver8_99_10.05.2021_dev.fasta \
+	--output-path step4_import/sh_refs_qiime_ver8_99_10.05.2021_dev.qza
 
 # Import the taxonomy file.
 qiime tools import \
 	--type FeatureData[Taxonomy] \
-	--input-path sh_taxonomy_qiime_ver8_99_04.02.2020_dev.txt \
-	--output-path unite-ver8-taxonomy_99_04.02.2020.qza \
+	--input-path  step2_extract/sh_qiime_release_10.05.2021/developer/sh_taxonomy_qiime_ver8_99_10.05.2021_dev.txt \
+	--output-path step4_import/sh_taxonomy_qiime_ver8_99_10.05.2021_dev.qza \
 	--input-format HeaderlessTSVTaxonomyFormat
 
 # Train the classifier.
-qiime feature-classifier fit-classifier-naive-bayes \
-	--i-reference-reads unite-ver8-seqs_99_04.02.2020.qza \
-	--i-reference-taxonomy unite-ver8-taxonomy_99_04.02.2020.qza \
-	--o-classifier unite-ver8-99-classifier-04.02.2020.qza
+time qiime feature-classifier fit-classifier-naive-bayes \
+	--i-reference-reads    step4_import/sh_refs_qiime_ver8_99_10.05.2021_dev.qza \
+	--i-reference-taxonomy step4_import/sh_taxonomy_qiime_ver8_99_10.05.2021_dev.qza \
+	--o-classifier step5_train/unite_ver8_99_10.05.2021_dev.qza
 
 #See Processing ITS Sequences with QIIME2 and DADA2 for how to use the classifier file.
 
