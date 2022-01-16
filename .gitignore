@@ -1,3 +1,7 @@
-step1_download_PlutoF/sh*
 step1_download_PlutoF/*tgz
 
+step2_extract/sh_qiime_release*
+
+step3_reformat/sh_refs_qiime*
+
+step4_import/*.qza
