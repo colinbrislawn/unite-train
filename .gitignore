@@ -1,7 +1,11 @@
-step1_download_PlutoF/*tgz
-
+# temp folders from pipeline
+step1_download/*tgz
 step2_extract/sh_qiime_release*
-
 step3_reformat/sh_refs_qiime*
-
 step4_import/*.qza
+
+# Snakemake
+results/**
+resources/**
+.snakemake
+.snakemake/**
