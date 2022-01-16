@@ -5,22 +5,23 @@
 
 from snakemake.io import glob_wildcards, expand
 
-EXTRACT_TO = ["sh_qiime_release_10.05.2021",
-            "sh_qiime_release_s_10.05.2021",
-            "sh_qiime_release_all_10.05.2021",
-            "sh_qiime_release_s_all_10.05.2021"
-            ]
+TYPE = ["",      # Fungi, Includes singletons set as RefS (in dynamic files).
+        "s_",    # Fungi, Includes global and 97% singletons.
+        "all_",  # All Euks, Includes singletons set as RefS (in dynamic files).
+        "s_all_" # All Euks, Includes global and 97% singletons.
+        ]
+DATE = ["10.05.2021"]
 
-# SAMPLES = expand("{folder}", folder=EXTRACT_TO)
-# print(SAMPLES)
+GOALS = expand("results/sh_qiime_release_{type}{date}", type=TYPE, date=DATE)
+print(GOALS)
 
 rule all:
     input:
-        expand("results/{folder}", folder=EXTRACT_TO)
+        GOALS
 
 rule download: # This is not proper snakemake. I can't get my tuples to work.
     output:
-        directory("results/{folder}")
+        directory(GOALS)
     # conda: # TODO: troubleshoot this and pin wget and tar versions
     #      "envs/unix.yaml"
     shell:
@@ -32,5 +33,5 @@ rule download: # This is not proper snakemake. I can't get my tuples to work.
         # 8.3	2021-05-10	All eukaryotes	14 237	96 423	Current	https://doi.org/10.15156/BIO/1264819
         wget -qO- https://files.plutof.ut.ee/public/orig/48/29/4829D91F763E20F0F4376A60AA53FC9FBE6029A7D1BDC1B45347DD64EDE5D560.tgz | tar xz -C results # sh_qiime_release_all_10.05.2021   # add all for Euks
         # 8.3	2021-05-10	All eukaryotes	14 237	190 888	Current	https://doi.org/10.15156/BIO/1264861
-        wget -qO- https://files.plutof.ut.ee/public/orig/1D/31/1D31FA3A308BDC2FB2750D62C0AA40C5058C15405A3CC5C626CC3A3F5E3903ED.tgz | tar xz -C results # sh_qiime_release_s_all_10.05.2021 # and s and all for 07% Euks singletons
+        wget -qO- https://files.plutof.ut.ee/public/orig/1D/31/1D31FA3A308BDC2FB2750D62C0AA40C5058C15405A3CC5C626CC3A3F5E3903ED.tgz | tar xz -C results # sh_qiime_release_s_all_10.05.2021 # and s and all for 97% Euks singletons
         """
