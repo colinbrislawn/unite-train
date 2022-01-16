@@ -33,7 +33,7 @@ cd step2_extract/sh_qiime_release_10.05.2021/developer/
 # Related blog post: https://john-quensen.com/tutorials/training-the-qiime2-classifier-with-unite-its-reference-sequences/
 ## Wildcards: output folder, percent ID, date
 awk '/^>/ {print($0)}; /^[^>]/ {print(toupper($0))}' step2_extract/sh_qiime_release_10.05.2021/developer/sh_refs_qiime_ver8_99_10.05.2021_dev.fasta | \
-	 tr -d ' ' > step3_reformat/sh_refs_qiime_ver8_99_10.05.2021_dev.fasta
+	 tr -d ' ' > step3_format/sh_refs_qiime_ver8_99_10.05.2021_dev.fasta
 
 # Explicitely activate a Qiime2 conda environment
 conda activate qiime2-2021.11
@@ -41,7 +41,7 @@ conda activate qiime2-2021.11
 # Import the UNITE reference sequences into QIIME2.
 qiime tools import \
 	--type FeatureData[Sequence] \
-	--input-path  step3_reformat/sh_refs_qiime_ver8_99_10.05.2021_dev.fasta \
+	--input-path  step3_format/sh_refs_qiime_ver8_99_10.05.2021_dev.fasta \
 	--output-path step4_import/sh_refs_qiime_ver8_99_10.05.2021_dev.qza
 
 # Import the taxonomy file.
@@ -55,7 +55,7 @@ qiime tools import \
 time qiime feature-classifier fit-classifier-naive-bayes \
 	--i-reference-reads    step4_import/sh_refs_qiime_ver8_99_10.05.2021_dev.qza \
 	--i-reference-taxonomy step4_import/sh_taxonomy_qiime_ver8_99_10.05.2021_dev.qza \
-	--o-classifier step5_train/unite_ver8_99_10.05.2021_dev.qza
+	--o-classifier         step5_export/unite_ver8_99_10.05.2021_dev.qza
 
 #See Processing ITS Sequences with QIIME2 and DADA2 for how to use the classifier file.
 

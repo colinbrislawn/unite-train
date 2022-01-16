@@ -1,8 +1,9 @@
 # temp folders from pipeline
 step1_download/*tgz
 step2_extract/sh_qiime_release*
-step3_reformat/sh_refs_qiime*
+step3_format/sh_refs_qiime*
 step4_import/*.qza
+step5_export/*.qza
 
 # Snakemake
 results/**
