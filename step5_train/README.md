@@ -1,0 +1,3 @@
+This folder holds the trained classifier as a `.qza` file.
+
+Not sure if these are going to be pushed to github or not...
