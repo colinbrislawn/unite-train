@@ -8,8 +8,8 @@ from snakemake.io import glob_wildcards, expand
 VERSION = ["ver8"]
 CLUSTER = [
     "97",
-    "99" #,
-    #"dynamic"
+    "99",
+    "dynamic"
     ]
 TYPE = [
     "",      # Fungi, Includes singletons set as RefS (in dynamic files).
@@ -70,6 +70,7 @@ rule train:
     output: protected("results/unite_{ver}_{id}_{type}{date}.qza")
     threads: 1000
     shell: "qiime feature-classifier fit-classifier-naive-bayes \
+            --p-classify--chunk-size 10000 \
             --i-reference-reads    {input.ref} \
             --i-reference-taxonomy {input.tax} \
             --o-classifier {output}"
