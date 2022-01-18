@@ -3,7 +3,7 @@ version: "ver8"
 
 # Precluster percentage
 cluster:
-  - "97"
+#  - "97"
   - "99"
   - "dynamic"
 
