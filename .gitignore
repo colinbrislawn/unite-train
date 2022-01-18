@@ -10,6 +10,7 @@ results/**
 resources/**
 .snakemake
 .snakemake/**
+logs/**
 
 # Just in case downloads are left over
 downloads/*
