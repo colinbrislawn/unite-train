@@ -20,21 +20,23 @@ TYPE = [
 DATE = ["10.05.2021"]
 
 GOALS = expand("results/unite_{ver}_{id}_{type}{date}.qza", ver=VERSION, id=CLUSTER, type=TYPE, date=DATE)
-print(GOALS)
+# print(GOALS)
 
 rule all:
     input: GOALS
 
-checkpoint download: # This is not proper snakemake. I can't get my tuples to work. Also it loops, gah!
+checkpoint download: # This is not proper snakemake. I can't get my tuples to work.
     output:
-        ref="downloads/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fasta",
-        tax="downloads/sh_taxonomy_qiime_{ver}_{id}_{type}{date}_dev.txt"
-        # directory(temp("downloads/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fasta"))
+        #ref=temp("downloads/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fasta"),
+        #tax=temp("downloads/sh_taxonomy_qiime_{ver}_{id}_{type}{date}_dev.txt")
+        # Note the messy wildcards in rule.reformat_seqs and rule.import_tax this requires
+        dir=temp(directory("downloads/")) 
     # conda: # TODO: troubleshoot this and pin wget and tar versions
     #      "envs/unix.yaml"
     threads: 1000
     shell:
         """
+        mkdir -p downloads
         # 8.3	2021-05-10	Fungi	14 097	44 343	Current	https://doi.org/10.15156/BIO/1264708
         wget -qO- https://files.plutof.ut.ee/public/orig/C5/54/C5547B97AAA979E45F79DC4C8C4B12113389343D7588716B5AD330F8BDB300C9.tgz | tar xz -C downloads --strip-components 2 # sh_qiime_release_10.05.2021       # normal
         # 8.3	2021-05-10	Fungi	14 097	83 993	Current	https://doi.org/10.15156/BIO/1264763
@@ -46,22 +48,29 @@ checkpoint download: # This is not proper snakemake. I can't get my tuples to wo
         """
 
 rule reformat_seqs:
-    input: "downloads/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fasta"
-    output:"results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta"
+    input: "downloads"
+    output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta")
     threads: 2
-    shell: "awk '/^>/ {{print($0)}}; /^[^>]/ {{print(toupper($0))}}' {input} | tr -d ' ' > {output}"
+    shell: "awk '/^>/ {{print($0)}}; /^[^>]/ {{print(toupper($0))}}' \
+            {input}/sh_refs_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.fasta | \
+            tr -d ' ' > {output}"
 
 rule import_seqs:
     input:  "results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta"
-    output: "results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza"
+    output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza")
     threads: 2
-    shell: "qiime tools import --type FeatureData[Sequence] --input-path {input} --output-path {output}"
+    shell: "qiime tools import --type FeatureData[Sequence] \
+            --input-path {input} \
+            --output-path {output}"
 
 rule import_tax:
-    input: "downloads/sh_taxonomy_qiime_{ver}_{id}_{type}{date}_dev.txt"
-    output:"results/sh_taxa_qiime_{ver}_{id}_{type}{date}_dev.qza"
+    input: "downloads"
+    output:temp("results/sh_taxa_qiime_{ver}_{id}_{type}{date}_dev.qza")
     threads: 2
-    shell: "qiime tools import --type FeatureData[Taxonomy] --input-format HeaderlessTSVTaxonomyFormat --input-path {input} --output-path {output}"
+    shell: "qiime tools import --type FeatureData[Taxonomy] \
+            --input-format HeaderlessTSVTaxonomyFormat \
+            --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
+            --output-path {output}"
 
 rule train:
     input:
