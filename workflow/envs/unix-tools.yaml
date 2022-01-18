@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+dependencies:
+  - wget
+  - tar
+  - gawk
+  - ta

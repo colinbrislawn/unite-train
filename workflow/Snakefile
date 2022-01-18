@@ -22,6 +22,7 @@ checkpoint download: # This is not proper snakemake. I can't get my tuples to wo
     # conda: # TODO: troubleshoot this and pin wget and tar versions
     #      "envs/unix.yaml"
     log: "logs/downloads.log"
+    conda: "envs/unix-tools.yaml"
     threads: 1000
     shell:
         """
@@ -40,6 +41,7 @@ rule reformat_seqs:
     input: "downloads"
     output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta")
     log:  "logs/reforamt_{ver}_{id}_{type}{date}.log"
+    conda: "envs/unix-tools.yaml"
     shell: "awk '/^>/ {{print($0)}}; /^[^>]/ {{print(toupper($0))}}' \
             {input}/sh_refs_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.fasta | \
             tr -d ' ' > {output}"
