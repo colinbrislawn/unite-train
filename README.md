@@ -7,14 +7,13 @@ There's a `.sh` script and a work-in-progress Snakemake workflow.
 # Snakemake workflow
 
 Set up:
- - Set up your [Qiime2 conda environment](https://docs.qiime2.org/2021.11/install/)
- - Install [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) **inside** your Qiime2 conda environment
- - Install any Unix software needed (wget, tar, awk, tr)
+ - Install [mamba](https://mamba.readthedocs.io/en/latest/installation.html), [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html), and activate snakemake environment
 
+Run:
 ```bash
-conda activate qiime2-2021.11
-
+conda activate snakemake
 snakemake --cores 8 --use-conda --conda-create-envs-only
+ # Connect to a worker node, if needed
 snakemake --cores 8 --use-conda --resources mem_mb=9000
 ```
 
