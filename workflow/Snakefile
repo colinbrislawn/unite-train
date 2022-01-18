@@ -40,7 +40,7 @@ checkpoint download: # This is not proper snakemake. I can't get my tuples to wo
 rule reformat_seqs:
     input: "downloads"
     output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta")
-    log:  "logs/reforamt_{ver}_{id}_{type}{date}.log"
+    log: "logs/reforamt_{ver}_{id}_{type}{date}.log"
     conda: "envs/unix-tools.yaml"
     shell: "awk '/^>/ {{print($0)}}; /^[^>]/ {{print(toupper($0))}}' \
             {input}/sh_refs_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.fasta | \
@@ -49,7 +49,7 @@ rule reformat_seqs:
 rule import_seqs:
     input:  "results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta"
     output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza")
-    log:  "logs/import_seqs_{ver}_{id}_{type}{date}.log"
+    log: "logs/import_seqs_{ver}_{id}_{type}{date}.log"
     shell: "qiime tools import --type FeatureData[Sequence] \
             --input-path {input} \
             --output-path {output}"
@@ -57,7 +57,7 @@ rule import_seqs:
 rule import_tax:
     input: "downloads"
     output:temp("results/sh_taxa_qiime_{ver}_{id}_{type}{date}_dev.qza")
-    log:  "logs/import_taxa_{ver}_{id}_{type}{date}.log"
+    log: "logs/import_taxa_{ver}_{id}_{type}{date}.log"
     shell: "qiime tools import --type FeatureData[Taxonomy] \
             --input-format HeaderlessTSVTaxonomyFormat \
             --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
@@ -68,9 +68,10 @@ rule train:
         ref=rules.import_seqs.output,
         tax=rules.import_tax.output
     output: protected("results/unite_{ver}_{id}_{type}{date}.qza")
-    log:  "logs/train_{ver}_{id}_{type}{date}.log"
+    log: "logs/train_{ver}_{id}_{type}{date}.log"
+    benchmark: "logs/train_{ver}_{id}_{type}{date}.tsv"
     resources:
-        mem_mb=5000
+        mem_mb=9000
     shell: "qiime feature-classifier fit-classifier-naive-bayes \
             --p-classify--chunk-size 10000 \
             --i-reference-reads    {input.ref} \
