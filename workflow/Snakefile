@@ -5,21 +5,9 @@
 
 from snakemake.io import glob_wildcards, expand
 
-VERSION = ["ver8"]
-CLUSTER = [
-    "97",
-    "99",
-    "dynamic"
-    ]
-TYPE = [
-    "",      # Fungi, Includes singletons set as RefS (in dynamic files).
-    "s_",    # Fungi, Includes global and 97% singletons.
-    "all_",  # All Euks, Includes singletons set as RefS (in dynamic files).
-    "s_all_" # All Euks, Includes global and 97% singletons.
-    ]
-DATE = ["10.05.2021"]
+configfile: "config/config.yaml"
 
-GOALS = expand("results/unite_{ver}_{id}_{type}{date}.qza", ver=VERSION, id=CLUSTER, type=TYPE, date=DATE)
+GOALS = expand("results/unite_{ver}_{id}_{type}{date}.qza", ver=config["version"], id=config["cluster"], type=config["type"], date=config["date"])
 # print(GOALS)
 
 rule all:

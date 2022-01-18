@@ -1,0 +1,18 @@
+# UNITE major version listed in file names
+version: "ver8"
+
+# Precluster percentage
+cluster:
+  - "97"
+  - "99"
+  - "dynamic"
+
+# Taxa scope and singleton inclusion
+type:
+  - ""
+  - "s_"
+  - "all_"
+  - "s_all_"
+
+# Publication version listed in the file name
+date: "10.05.2021"
