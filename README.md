@@ -8,11 +8,20 @@ There's a `.sh` script and a work-in-progress Snakemake workflow.
 
 Set up:
  - Set up your [Qiime2 conda environment](https://docs.qiime2.org/2021.11/install/)
- - Set up [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html)
+ - Install [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) **inside** your Qiime2 conda environment
  - Install any Unix software needed (wget, tar, awk, tr)
 
 ```bash
-conda activate snakemake
+conda activate qiime2-2021.11
 
-snakemake --use-conda --cores 1
+snakemake --cores 8
+
+snakemake --report results/report.html
+```
+
+Reports:
+```bash
+snakemake --report results/report.html
+
+snakemake --forceall --dag --dryrun | dot -Tpdf > results/dag.pdf
 ```
