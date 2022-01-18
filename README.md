@@ -14,9 +14,8 @@ Set up:
 ```bash
 conda activate qiime2-2021.11
 
-snakemake --cores 8
-
-snakemake --report results/report.html
+snakemake --cores 8 --use-conda --conda-create-envs-only
+snakemake --cores 8 --use-conda --resources mem_mb=9000
 ```
 
 Reports:
