@@ -1,25 +1,24 @@
 # unite-train
 
-A pipeline to `fit-classifier-naive-bayes` to the [UNITE database](https://unite.ut.ee/repository.php).
+A pipeline to build [Qiime2](https://qiime2.org/) taxonomy [classifiers](https://docs.qiime2.org/2021.11/data-resources/) for the [UNITE database](https://unite.ut.ee/repository.php).
 
-There's a `.sh` script and a work-in-progress Snakemake workflow.
+### [Download a pre-trained classifier here! 🎁](https://github.com/colinbrislawn/unite-train/releases)
 
-# Snakemake workflow
+
+# Running Snakemake workflow
 
 Set up:
  - Install [mamba](https://mamba.readthedocs.io/en/latest/installation.html), [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html), and activate snakemake environment
 
 Run:
 ```bash
-conda activate snakemake
 snakemake --cores 8 --use-conda --conda-create-envs-only
- # Connect to a worker node, if needed
+# Connect to a worker node, if needed, then
 snakemake --cores 8 --use-conda --resources mem_mb=9000
 ```
 
 Reports:
 ```bash
 snakemake --report results/report.html
-
 snakemake --forceall --dag --dryrun | dot -Tpdf > results/dag.pdf
 ```
