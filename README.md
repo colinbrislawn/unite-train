@@ -4,6 +4,9 @@ A pipeline to build [Qiime2](https://qiime2.org/) taxonomy [classifiers](https:/
 
 ### [Download a pre-trained classifier here! 🎁](https://github.com/colinbrislawn/unite-train/releases)
 
+[![Issues](https://img.shields.io/github/issues/colinbrislawn/unite-train?style=for-the-badge)](https://github.com/colinbrislawn/unite-train/issues)
+[![release](https://img.shields.io/github/release-date-pre/colinbrislawn/unite-train?style=for-the-badge)](https://github.com/colinbrislawn/unite-train/releases)
+[![Downloads](https://img.shields.io/github/downloads/colinbrislawn/unite-train/total.svg?style=for-the-badge)](https://github.com/colinbrislawn/unite-train/releases)
 
 # Running Snakemake workflow
 
