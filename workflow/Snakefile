@@ -7,7 +7,7 @@ from snakemake.io import glob_wildcards, expand
 
 configfile: "config/config.yaml"
 
-GOALS = expand("results/unite_{ver}_{id}_{type}{date}.qza", ver=config["version"], id=config["cluster"], type=config["type"], date=config["date"])
+GOALS = expand("results/unite_{ver}_{id}_{type}{date}-Q2-2022.2.qza",ver=config["version"], id=config["cluster"], type=config["type"], date=config["date"])
 # print(GOALS)
 
 rule all:
@@ -72,9 +72,9 @@ rule train:
     input:
         ref=rules.import_seqs.output,
         tax=rules.import_tax.output
-    output: protected("results/unite_{ver}_{id}_{type}{date}.qza")
+    output: protected("results/unite_{ver}_{id}_{type}{date}-Q2-2022.2.qza")
     log: "logs/train_{ver}_{id}_{type}{date}.log"
-    conda: "envs/qiime2-2021.11-py38-linux-conda.yml"
+    conda: "envs/qiime2-2022.2-py38-linux-conda.yml"
     benchmark: "logs/train_{ver}_{id}_{type}{date}.tsv"
     resources:
         mem_mb=9000
