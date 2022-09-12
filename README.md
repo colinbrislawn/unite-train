@@ -18,6 +18,7 @@ Run:
 snakemake --cores 8 --use-conda --conda-create-envs-only
 # Connect to a worker node, if needed, then
 snakemake --cores 8 --use-conda --resources mem_mb=9000
+# This takes about 11 hours on my machine
 ```
 
 Reports:

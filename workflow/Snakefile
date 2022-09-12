@@ -7,7 +7,7 @@ from snakemake.io import glob_wildcards, expand
 
 configfile: "config/config.yaml"
 
-GOALS = expand("results/unite_{ver}_{id}_{type}{date}-Q2-2022.2.qza",ver=config["version"], id=config["cluster"], type=config["type"], date=config["date"])
+GOALS = expand("results/unite_{ver}_{id}_{type}{date}-Q2-2022.8.qza",ver=config["version"], id=config["cluster"], type=config["type"], date=config["date"])
 # print(GOALS)
 
 rule all:
@@ -53,7 +53,7 @@ rule import_seqs:
     input:  "results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta"
     output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza")
     log: "logs/import_seqs_{ver}_{id}_{type}{date}.log"
-    conda: "envs/qiime2-2021.11-py38-linux-conda.yml"
+    conda: "envs/qiime2-2022.8-py38-linux-conda.yml"
     shell: "qiime tools import --type FeatureData[Sequence] \
             --input-path {input} \
             --output-path {output}"
@@ -62,7 +62,7 @@ rule import_tax:
     input: "downloads"
     output:temp("results/sh_taxa_qiime_{ver}_{id}_{type}{date}_dev.qza")
     log: "logs/import_taxa_{ver}_{id}_{type}{date}.log"
-    conda: "envs/qiime2-2021.11-py38-linux-conda.yml"
+    conda: "envs/qiime2-2022.8-py38-linux-conda.yml"
     shell: "qiime tools import --type FeatureData[Taxonomy] \
             --input-format HeaderlessTSVTaxonomyFormat \
             --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
@@ -72,9 +72,9 @@ rule train:
     input:
         ref=rules.import_seqs.output,
         tax=rules.import_tax.output
-    output: protected("results/unite_{ver}_{id}_{type}{date}-Q2-2022.2.qza")
+    output: protected("results/unite_{ver}_{id}_{type}{date}-Q2-2022.8.qza")
     log: "logs/train_{ver}_{id}_{type}{date}.log"
-    conda: "envs/qiime2-2022.2-py38-linux-conda.yml"
+    conda: "envs/qiime2-2022.8-py38-linux-conda.yml"
     benchmark: "logs/train_{ver}_{id}_{type}{date}.tsv"
     resources:
         mem_mb=9000
