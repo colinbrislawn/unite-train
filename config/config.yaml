@@ -1,18 +1,24 @@
-# UNITE major version listed in file names
-version: "ver8"
+# Qiime2 version number
+q2v: "2022.8"
 
-# Precluster percentage
+# Qiime2 conda environment, copied from https://github.com/qiime2/environment-files
+q2env: "envs/qiime2-2022.8-py38-linux-conda.yml"
+
+# UNITE Major version listed in file names
+version: "ver9"
+
+# UNITE Precluster percentage
 cluster:
   - "97"
   - "99"
   - "dynamic"
 
-# Taxa scope and singleton inclusion
+# UNITE Taxa scope and singleton inclusion
 type:
   - ""
   - "s_"
   - "all_"
   - "s_all_"
 
-# Publication version listed in the file name
-date: "10.05.2021"
+# UNITE Publication version listed in the file name
+date: "16.10.2022"
