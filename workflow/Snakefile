@@ -7,8 +7,15 @@ from snakemake.io import glob_wildcards, expand
 
 configfile: "config/config.yaml"
 
-GOALS = expand("results/unite_{ver}_{id}_{type}{date}-Q2-2022.8.qza",ver=config["version"], id=config["cluster"], type=config["type"], date=config["date"])
+GOALS = expand("results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza",
+               ver=config["version"],
+               id=config["cluster"],
+               type=config["type"],
+               date=config["date"],
+               q2v=config["q2v"]
+               )
 # print(GOALS)
+Q2CONDA = config["q2env"]
 
 rule all:
     input:
@@ -30,14 +37,31 @@ checkpoint download: # This is not proper snakemake. I can't get my tuples to wo
     shell:
         """
         mkdir -p downloads
-        # 8.3	2021-05-10	Fungi	14 097	44 343	Current	https://doi.org/10.15156/BIO/1264708
-        wget -qO- https://files.plutof.ut.ee/public/orig/C5/54/C5547B97AAA979E45F79DC4C8C4B12113389343D7588716B5AD330F8BDB300C9.tgz | tar xz -C downloads --strip-components 2 # sh_qiime_release_10.05.2021       # normal
-        # 8.3	2021-05-10	Fungi	14 097	83 993	Current	https://doi.org/10.15156/BIO/1264763
-        wget -qO- https://files.plutof.ut.ee/public/orig/B3/05/B3054DF783AC61A0C3BD0FDEB0516EC394934809AAE43CA0F3081C0A184FAA39.tgz | tar xz -C downloads --strip-components 2 # sh_qiime_release_s_10.05.2021     # add s for 97% singletons
-        # 8.3	2021-05-10	All eukaryotes	14 237	96 423	Current	https://doi.org/10.15156/BIO/1264819
-        wget -qO- https://files.plutof.ut.ee/public/orig/48/29/4829D91F763E20F0F4376A60AA53FC9FBE6029A7D1BDC1B45347DD64EDE5D560.tgz | tar xz -C downloads --strip-components 2 # sh_qiime_release_all_10.05.2021   # add all for Euks
-        # 8.3	2021-05-10	All eukaryotes	14 237	190 888	Current	https://doi.org/10.15156/BIO/1264861
-        wget -qO- https://files.plutof.ut.ee/public/orig/1D/31/1D31FA3A308BDC2FB2750D62C0AA40C5058C15405A3CC5C626CC3A3F5E3903ED.tgz | tar xz -C downloads --strip-components 2 # sh_qiime_release_s_all_10.05.2021 # and s and all for 97% Euks singletons
+
+        # Version 9 update. From DOIs, get download URLs from here:
+        # https://api.plutof.ut.ee/v1/public/dois/?format=api&identifier=10.15156/BIO/2483915
+        # All these DOIs now link to three files:
+        # - sh_qiime_release_16.10.2022.tgz
+        # - sh_qiime_release_27.10.2022.tgz
+        # - sh_qiime_release_29.11.2022.tgz
+        # These are dates. I can't find release information.
+
+        # 9.0	2022-10-16	Fungi	17 495	143 840	Current	https://doi.org/10.15156/BIO/2483915
+        wget -qO- https://files.plutof.ut.ee/public/orig/59/12/591225E8985EFC44B595C79AF5F467421B4D9A95093A0811B13CB4CC13A6DA46.tgz | \
+          tar xz -C downloads --strip-components 1 # sh_qiime_release_29.11.2022.tgz      # normal
+
+        # 9.0	2022-10-16	Fungi	17 495	188 070	Current	https://doi.org/10.15156/BIO/2483916
+        wget -qO- https://files.plutof.ut.ee/public/orig/67/1C/671C4D441E50DCD30691B84EED22065D77BAD3D18AF1905675633979BF323754.tgz | \
+          tar xz -C downloads --strip-components 1 # sh_qiime_release_s_29.11.2022.tgz    # add s for 97% singletons
+
+        # 9.0	2022-10-16	All eukaryotes	17 683	216 528	Current	https://doi.org/10.15156/BIO/2483917
+        wget -qO- https://files.plutof.ut.ee/public/orig/8F/FC/8FFCC8A730E50FEEF8CFFEEFEF02A22FBCF7E02B7FD31C6649754834D2CB0E6F.tgz | \
+          tar xz -C downloads --strip-components 1 # sh_qiime_release_all_29.11.2022.tgz  # add all for Euks
+
+        # 9.0	2022-10-16	All eukaryotes	17 683	308 588	Current	https://doi.org/10.15156/BIO/2483918
+        wget -qO- https://files.plutof.ut.ee/public/orig/71/E6/71E68A5DD3F5C311F913757F9E7CA2508430F9400C14413ADA08A0BB33169BB4.tgz | \
+          tar xz -C downloads --strip-components 1 # sh_qiime_release_s_all_29.11.2022.tgz # and s and all for 97% Euks singletons
+
         """
 
 rule reformat_seqs:
@@ -53,7 +77,7 @@ rule import_seqs:
     input:  "results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta"
     output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza")
     log: "logs/import_seqs_{ver}_{id}_{type}{date}.log"
-    conda: "envs/qiime2-2022.8-py38-linux-conda.yml"
+    conda: Q2CONDA
     shell: "qiime tools import --type FeatureData[Sequence] \
             --input-path {input} \
             --output-path {output}"
@@ -62,7 +86,7 @@ rule import_tax:
     input: "downloads"
     output:temp("results/sh_taxa_qiime_{ver}_{id}_{type}{date}_dev.qza")
     log: "logs/import_taxa_{ver}_{id}_{type}{date}.log"
-    conda: "envs/qiime2-2022.8-py38-linux-conda.yml"
+    conda: Q2CONDA
     shell: "qiime tools import --type FeatureData[Taxonomy] \
             --input-format HeaderlessTSVTaxonomyFormat \
             --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
@@ -72,10 +96,10 @@ rule train:
     input:
         ref=rules.import_seqs.output,
         tax=rules.import_tax.output
-    output: protected("results/unite_{ver}_{id}_{type}{date}-Q2-2022.8.qza")
-    log: "logs/train_{ver}_{id}_{type}{date}.log"
-    conda: "envs/qiime2-2022.8-py38-linux-conda.yml"
-    benchmark: "logs/train_{ver}_{id}_{type}{date}.tsv"
+    output: protected("results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza")
+    log: "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.log"
+    conda: Q2CONDA
+    benchmark: "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.tsv"
     resources:
         mem_mb=9000
     shell: "qiime feature-classifier fit-classifier-naive-bayes \
