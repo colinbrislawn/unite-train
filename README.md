@@ -11,7 +11,7 @@ A pipeline to build [Qiime2](https://qiime2.org/) taxonomy [classifiers](https:/
 # Running Snakemake workflow
 
 Set up:
- - Install [mamba](https://mamba.readthedocs.io/en/latest/installation.html), [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html), and activate snakemake environment
+ - Install [mamba](https://mamba.readthedocs.io/en/latest/installation.html) and configure [Bioconda](https://bioconda.github.io/). Then install [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) and activate the Snakemake environment.
 
 Run:
 ```bash
