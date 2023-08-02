@@ -38,29 +38,25 @@ checkpoint download: # This is not proper snakemake. I can't get my tuples to wo
         """
         mkdir -p downloads
 
-        # Version 9 update. From DOIs, get download URLs from here:
+        # Version 9 update. Get DOIs from here: https://unite.ut.ee/repository.php
+        # To get URLs you can download directly, plug them into this API:
         # https://api.plutof.ut.ee/v1/public/dois/?format=api&identifier=10.15156/BIO/2483915
-        # All these DOIs now link to three files:
-        # - sh_qiime_release_16.10.2022.tgz
-        # - sh_qiime_release_27.10.2022.tgz
-        # - sh_qiime_release_29.11.2022.tgz
-        # These are dates. I can't find release information.
 
-        # 9.0	2022-10-16	Fungi	17 495	143 840	Current	https://doi.org/10.15156/BIO/2483915
-        wget -qO- https://files.plutof.ut.ee/public/orig/59/12/591225E8985EFC44B595C79AF5F467421B4D9A95093A0811B13CB4CC13A6DA46.tgz | \
-          tar xz -C downloads --strip-components 1 # sh_qiime_release_29.11.2022.tgz      # normal
+        # 9.0	2023-07-18	Fungi	19 051	143 384	Current	https://doi.org/10.15156/BIO/2938079
+        wget -qO- https://files.plutof.ut.ee/public/orig/FB/78/FB78E30E44793FB02E5A4D3AE18EB4A6621A2FAEB7A4E94421B8F7B65D46CA4A.tgz | \
+          tar xz -C downloads --strip-components 1 # sh_qiime_release_25.07.2023.tgz      # normal
 
-        # 9.0	2022-10-16	Fungi	17 495	188 070	Current	https://doi.org/10.15156/BIO/2483916
-        wget -qO- https://files.plutof.ut.ee/public/orig/67/1C/671C4D441E50DCD30691B84EED22065D77BAD3D18AF1905675633979BF323754.tgz | \
-          tar xz -C downloads --strip-components 1 # sh_qiime_release_s_29.11.2022.tgz    # add s for 97% singletons
+        # 9.0	2023-07-18	Fungi	19 051	187 443	Current	https://doi.org/10.15156/BIO/2938080
+        wget -qO- https://files.plutof.ut.ee/public/orig/37/71/3771274B094D9CA6252DF01359756B60A2FBEEF87854CC01C2577182DBB123C7.tgz | \
+          tar xz -C downloads --strip-components 1 # sh_qiime_release_s_25.07.2023.tgz    # add s for 97% singletons
 
-        # 9.0	2022-10-16	All eukaryotes	17 683	216 528	Current	https://doi.org/10.15156/BIO/2483917
-        wget -qO- https://files.plutof.ut.ee/public/orig/8F/FC/8FFCC8A730E50FEEF8CFFEEFEF02A22FBCF7E02B7FD31C6649754834D2CB0E6F.tgz | \
-          tar xz -C downloads --strip-components 1 # sh_qiime_release_all_29.11.2022.tgz  # add all for Euks
+        # 9.0	2023-07-18	All eukaryotes	19 451	215 454	Current	https://doi.org/10.15156/BIO/2938081
+        wget -qO- https://files.plutof.ut.ee/public/orig/1C/C2/1CC2477429B3A703CC1C7A896A7EFF457BB0D471877CB8D18074959DBB630D10.tgz | \
+          tar xz -C downloads --strip-components 1 # sh_qiime_release_all_25.07.2023.tgz  # add all for Euks
 
-        # 9.0	2022-10-16	All eukaryotes	17 683	308 588	Current	https://doi.org/10.15156/BIO/2483918
-        wget -qO- https://files.plutof.ut.ee/public/orig/71/E6/71E68A5DD3F5C311F913757F9E7CA2508430F9400C14413ADA08A0BB33169BB4.tgz | \
-          tar xz -C downloads --strip-components 1 # sh_qiime_release_s_all_29.11.2022.tgz # and s and all for 97% Euks singletons
+        # 9.0	2023-07-18	All eukaryotes	19 451	307 276	Current	https://doi.org/10.15156/BIO/2938082
+        wget -qO- https://files.plutof.ut.ee/public/orig/7D/0C/7D0C329980D2C644CC157A8C76BBD11E78DB8B13286C98D4FEB6ECAC79D67D6F.tgz | \
+          tar xz -C downloads --strip-components 1 # sh_qiime_release_s_all_25.07.2023.tgz # and s and all for 97% Euks singletons
 
         """
 
