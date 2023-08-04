@@ -4,11 +4,13 @@ q2v: "2023.5"
 # Get full file from from https://github.com/qiime2/environment-files
 # Or specify name of already installed Qiime2 environment
 q2env: "qiime2-2023.5"
+# Or load a pre-installed module
+q2mod: "qiime2/2023.5"
 
 # UNITE Major version listed in file names
 version: "ver9"
 # UNITE Publication version listed in the file names
-date: "29.11.2022"
+date: "25.07.2023"
 
 # UNITE Precluster percentage
 cluster:
