@@ -1,0 +1,93 @@
+---
+title: "Snakemake Bench"
+author: "Colin J. Brislawn"
+date: "August 4, 2023"
+output: html_document
+---
+
+```{r setup0, include=FALSE}
+# library(phyloseq)
+library("tidyverse")
+# library("vegan")
+library("kableExtra")
+library("vroom")
+
+knitr::opts_chunk$set(echo = TRUE, cache = F)
+
+theme_set(theme_bw())
+theme_update(
+  strip.background = element_blank(),
+  axis.text.x = element_text(angle = 0, hjust = 0.5)
+)
+```
+
+```{r lint, include=F, eval=F}
+library(styler)
+styler:::style_active_file()
+
+library(lintr)
+lintr::lint("Snakemake-Bench.Rmd",
+  linters = with_defaults(
+    line_length_linter = line_length_linter(120),
+    object_name_linter = NULL,
+    commented_code_linter = NULL
+  )
+)
+```
+
+## Goal 1: time and memory for one full run
+
+```{r}
+bench1 <- fs::dir_ls(path = "one-run/", glob = "*tsv") %>%
+  vroom(id = "path") %>%
+  mutate(path = str_remove(path, "one-run/train_ver9_")) %>%
+  mutate(path = str_remove(path, "_25.07.2023-Q2-2023.5.tsv")) %>%
+  separate(path, c("id", "type"), sep = "_", extra = "merge")
+
+plotcolors <- scale_fill_brewer(palette = "Set2")
+
+bench1 %>% ggplot(aes(x = type, y = s / 60 / 60, fill = id)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Runtime in hours") +
+  plotcolors
+
+bench1 %>% ggplot(aes(x = type, y = max_rss / 1000, fill = id)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Maximum memory usage in GBs") +
+  plotcolors
+```
+
+## Goal 2: time and memory ~ reads-per-chunk
+
+Parameter sweep reads-per-chunk settings for skl-classifiers.
+
+What read numbers should we test, along a log scale?
+
+```{r}
+data.frame(x = 3 + (0:10) / 10) %>%
+  mutate(y = round(10^x))
+
+```
+
+```{r}
+bench2 <- fs::dir_ls(path = "batch-size/", glob = "*tsv") %>%
+  vroom(id = "path") %>%
+  mutate(path = str_remove(path, "batch-size/train_ver9_99_25.07.2023-Q2-2023.5-chunk")) %>%
+  mutate(path = str_remove(path, ".tsv")) %>%
+  mutate(path = as.numeric(path)) %>%
+  mutate(type = as.factor(as.numeric(path)))
+
+plotcolors <- scale_fill_brewer(palette = "Set2")
+
+bench2 %>% ggplot(aes(x = path, y = s / 60 / 60)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_x_log10() +
+  labs(title = "Runtime in hours") +
+  plotcolors
+
+bench2 %>% ggplot(aes(x = type, y = max_rss / 1000)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Maximum memory usage in GBs") +
+  plotcolors
+
+```
