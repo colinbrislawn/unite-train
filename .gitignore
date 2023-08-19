@@ -1,10 +1,3 @@
-# temp folders from pipeline
-step1_download/*tgz
-step2_extract/sh_qiime_release*
-step3_format/sh_refs_qiime*
-step4_import/*.qza
-step5_export/*.qza
-
 # Snakemake
 results/**
 resources/**
@@ -14,3 +7,14 @@ logs/**
 
 # Just in case downloads are left over
 downloads/*
+
+# R
+.Rhistory
+.Rapp.history
+.RData
+.RDataTmp
+.Ruserdata
+.httr-oauth
+*_cache/
+/cache/
+
