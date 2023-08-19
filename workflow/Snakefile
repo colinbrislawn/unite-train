@@ -7,6 +7,13 @@ from snakemake.io import glob_wildcards, expand
 
 configfile: "config/config.yaml"
 
+# Prevents the 'download' rule from running on worker nodes
+localrules: all, download
+
+# load and set conda envs and modules from the config
+Q2CONDA = config["q2env"]
+Q2MOD = config["q2mod"]
+
 GOALS = expand("results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza",
                ver=config["version"],
                id=config["cluster"],
@@ -15,7 +22,6 @@ GOALS = expand("results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza",
                q2v=config["q2v"]
                )
 # print(GOALS)
-Q2CONDA = config["q2env"]
 
 rule all:
     input:
@@ -29,11 +35,8 @@ checkpoint download: # This is not proper snakemake. I can't get my tuples to wo
         #tax=temp("downloads/sh_taxonomy_qiime_{ver}_{id}_{type}{date}_dev.txt")
         # Note the messy wildcards in rule.reformat_seqs and rule.import_tax this requires
         dir=directory("downloads/")
-    # conda: # TODO: troubleshoot this and pin wget and tar versions
-    #      "envs/unix.yaml"
     log: "logs/downloads.log"
     conda: "envs/unix-tools.yaml"
-    threads: 1000
     shell:
         """
         mkdir -p downloads
@@ -74,6 +77,7 @@ rule import_seqs:
     output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza")
     log: "logs/import_seqs_{ver}_{id}_{type}{date}.log"
     conda: Q2CONDA
+    envmodules: Q2MOD
     shell: "qiime tools import --type FeatureData[Sequence] \
             --input-path {input} \
             --output-path {output}"
@@ -83,6 +87,7 @@ rule import_tax:
     output:temp("results/sh_taxa_qiime_{ver}_{id}_{type}{date}_dev.qza")
     log: "logs/import_taxa_{ver}_{id}_{type}{date}.log"
     conda: Q2CONDA
+    envmodules: Q2MOD
     shell: "qiime tools import --type FeatureData[Taxonomy] \
             --input-format HeaderlessTSVTaxonomyFormat \
             --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
@@ -95,9 +100,11 @@ rule train:
     output: protected("results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza")
     log: "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.log"
     conda: Q2CONDA
+    envmodules: Q2MOD
     benchmark: "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.tsv"
     resources:
-        mem_mb=9000
+        mem_mb=300*1000, # slurm wants plenty of memory
+        runtime="90h"    # hopefully not
     shell: "qiime feature-classifier fit-classifier-naive-bayes \
             --p-classify--chunk-size 10000 \
             --i-reference-reads    {input.ref} \

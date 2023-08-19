@@ -32,6 +32,24 @@ snakemake --cores 8 --use-conda --resources mem_mb=10000
 
 This takes about 15 hours on my machine
 
+<details>
+  <summary>Run on a slurm cluster:</summary>
+
+More specifically, The University of Florida HiPerGator supercomputer,
+with access generously provided by the [Kawahara Lab](https://www.floridamuseum.ufl.edu/kawahara-lab/)!
+
+```bash
+screen    # We connect to a random login node, so we may not be able...
+screen -r # to reconnect with this later on.
+
+snakemake --jobs 12 --slurm \
+  --use-envmodules --rerun-incomplete --latency-wait 10 \
+  --default-resources slurm_account=kawahara slurm_partition=hpg-milan
+
+```
+
+</details>
+
 Reports:
 
 ```bash
