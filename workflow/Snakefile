@@ -97,8 +97,8 @@ rule train:
     envmodules: Q2MOD
     benchmark: "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.tsv"
     resources:
-        mem_mb=300*1000, # slurm wants plenty of memory
-        runtime="90h"    # hopefully not
+        mem_mb=150*1000, # slurm wants plenty of memory
+        runtime="24h"    # hopefully not
     shell: "qiime feature-classifier fit-classifier-naive-bayes \
             --p-classify--chunk-size 10000 \
             --i-reference-reads    {input.ref} \
