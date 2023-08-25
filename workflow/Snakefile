@@ -63,23 +63,16 @@ checkpoint download: # This is not proper snakemake. I can't get my tuples to wo
 
         """
 
-rule reformat_seqs:
-    input: "downloads"
-    output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta")
-    log: "logs/reforamt_{ver}_{id}_{type}{date}.log"
-    conda: "envs/unix-tools.yaml"
-    shell: "awk '/^>/ {{print($0)}}; /^[^>]/ {{print(toupper($0))}}' \
-            {input}/sh_refs_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.fasta | \
-            tr -d ' ' > {output}"
-
 rule import_seqs:
-    input:  "results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fixed.fasta"
+    input: "downloads"
     output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza")
     log: "logs/import_seqs_{ver}_{id}_{type}{date}.log"
     conda: Q2CONDA
     envmodules: Q2MOD
-    shell: "qiime tools import --type FeatureData[Sequence] \
-            --input-path {input} \
+    shell: "qiime tools import \
+            --type FeatureData[Sequence] \
+            --input-format MixedCaseDNAFASTAFormat \
+            --input-path {input}/sh_refs_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.fasta \
             --output-path {output}"
 
 rule import_tax:
@@ -88,7 +81,8 @@ rule import_tax:
     log: "logs/import_taxa_{ver}_{id}_{type}{date}.log"
     conda: Q2CONDA
     envmodules: Q2MOD
-    shell: "qiime tools import --type FeatureData[Taxonomy] \
+    shell: "qiime tools import \
+            --type FeatureData[Taxonomy] \
             --input-format HeaderlessTSVTaxonomyFormat \
             --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
             --output-path {output}"
