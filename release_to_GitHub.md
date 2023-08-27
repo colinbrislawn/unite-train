@@ -16,14 +16,14 @@ gh auth login
 ## Create a new tag and release:
 
 ```bash
-newtag="v9.0-v25.07.2023-qiime2-2023.5"
+newtag="v9.0-v25.07.2023-qiime2-2023.7"
 
 gh release create ${newtag} \
   --draft \
   --latest \
   -F release_notes_newest.md \
   --prerelease  \
-  --title "Demo! UNITE v9.0 v25.07.2023 for qiime2-2023.5"
+  --title "UNITE v9.0 v25.07.2023 for qiime2-2023.7"
 ```
 
 ## Push files to this new release:

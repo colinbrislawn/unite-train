@@ -1,7 +1,7 @@
 ⚠️ This is a public demo, and has not been validated. I am not affiliated with the UNITE team.
 
-This is a classifier for [Unite v9.0](https://unite.ut.ee/repository.php) Version 18.07.2023 trained for use with [Qiime2 2023.5](https://docs.qiime2.org/2023.5/install/).
-These can be used with `q2-feature-classifier` like those found on the [Data resources page](https://docs.qiime2.org/2023.5/data-resources/).
+This is a classifier for [Unite v9.0](https://unite.ut.ee/repository.php) Version 18.07.2023 trained for use with [Qiime2 2023.7](https://docs.qiime2.org/2023.7/install/).
+These can be used with `q2-feature-classifier` like those found on the [Data resources page](https://docs.qiime2.org/2023.7/data-resources/).
 
 UNITE is licensed under CC BY-SA 4.0. If you use it, cite it! 🤝
 
@@ -13,8 +13,11 @@ UNITE is licensed under CC BY-SA 4.0. If you use it, cite it! 🤝
 
 Changes:
 
-- Update to Unite v9.0 to Version 18.07.2023
-- That's right, Unite uses two version numbers for each release, and sometimes only one of them changes
+- Update Qiime2 to version 2023.7
+- Internal changes:
+  - Add basic benchmarks
+  - Change default cluster settings
+  - Import using new MixedCaseDNAFASTAFormat (thanks @mikerobeson!)
 
 ---
 
