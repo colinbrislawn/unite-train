@@ -13,6 +13,28 @@ mamba install gh --channel conda-forge
 gh auth login
 ```
 
+## But first, test to see if output file even works
+
+```bash
+mkdir -p /tmp/qiime2tmp
+export TMPDIR="/tmp/qiime2tmp/"
+module load qiime2
+
+time qiime feature-classifier classify-sklearn \
+  --i-classifier unite_ver9_dynamic_25.07.2023-Q2-2023.7.qza \
+  --i-reads ../benchmarks/dada2-single-end-rep-seqs.qza \
+  --o-classification test-tax.qza
+
+qiime taxa barplot \
+  --i-table ../benchmarks/dada2-single-end-table.qza \
+  --i-taxonomy test-tax.qza \
+  --m-metadata-file ../benchmarks/mock-25-sample-metadata.tsv \
+  --o-visualization test-tax.qzv
+
+# Cleanup
+rm -rf test-tax*
+```
+
 ## Create a new tag and release:
 
 ```bash
