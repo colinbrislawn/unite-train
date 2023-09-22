@@ -87,6 +87,10 @@ rule import_tax:
             --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
             --output-path {output}"
 
+def get_mem_mb(wildcards, attempt):
+    return (100 + attempt*40)*1000
+    #      ^100gb base, then 40gb more each time
+
 rule train:
     input:
         ref=rules.import_seqs.output,
@@ -97,8 +101,8 @@ rule train:
     envmodules: Q2MOD
     benchmark: "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.tsv"
     resources:
-        mem_mb=150*1000, # slurm wants plenty of memory
-        runtime="24h"    # hopefully not
+        mem_mb=get_mem_mb, # see function above
+        runtime="24h"           # hopefully not
     shell: "qiime feature-classifier fit-classifier-naive-bayes \
             --p-classify--chunk-size 10000 \
             --i-reference-reads    {input.ref} \

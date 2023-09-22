@@ -42,8 +42,9 @@ with access generously provided by the [Kawahara Lab](https://www.floridamuseum.
 screen    # We connect to a random login node, so we may not be able...
 screen -r # to reconnect with this later on.
 
-snakemake --jobs 12 --slurm \
-  --use-envmodules --rerun-incomplete --latency-wait 10 \
+snakemake --jobs 24 --slurm \
+  --rerun-incomplete --retries 3 \
+  --use-envmodules --latency-wait 10 \
   --default-resources slurm_account=kawahara slurm_partition=hpg-milan
 
 ```
