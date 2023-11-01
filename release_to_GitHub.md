@@ -21,7 +21,7 @@ export TMPDIR="/tmp/qiime2tmp/"
 module load qiime2
 
 time qiime feature-classifier classify-sklearn \
-  --i-classifier unite_ver9_dynamic_25.07.2023-Q2-2023.7.qza \
+  --i-classifier unite_ver9_dynamic_25.07.2023-Q2-2023.9.qza \
   --i-reads ../benchmarks/dada2-single-end-rep-seqs.qza \
   --o-classification test-tax.qza
 
@@ -38,14 +38,14 @@ rm -rf test-tax*
 ## Create a new tag and release:
 
 ```bash
-newtag="v9.0-v25.07.2023-qiime2-2023.7"
+newtag="v9.0-v25.07.2023-qiime2-2023.9"
 
 gh release create ${newtag} \
   --draft \
   --latest \
   -F release_notes_newest.md \
   --prerelease  \
-  --title "UNITE v9.0 v25.07.2023 for qiime2-2023.7"
+  --title "UNITE v9.0 v25.07.2023 for qiime2-2023.9"
 ```
 
 ## Push files to this new release:
