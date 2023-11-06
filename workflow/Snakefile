@@ -8,6 +8,7 @@ from snakemake.io import glob_wildcards, expand
 
 configfile: "config/config.yaml"
 
+include: "common.smk"  # python helper functions
 
 # Prevents the 'download' rule from running on worker nodes
 localrules:
@@ -114,11 +115,6 @@ rule import_tax:
         --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
         --output-path {output}
         """
-
-
-def get_mem_mb(wildcards, attempt):
-    return (100 + attempt * 40) * 1000
-    #      ^100gb base, then 40gb more each time
 
 
 rule train:
