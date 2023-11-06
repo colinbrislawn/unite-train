@@ -1,42 +1,52 @@
-# Main entrypoint of the workflow. 
-# Please follow the best practices: 
+# Main entrypoint of the workflow.
+# Please follow the best practices:
 # https://snakemake.readthedocs.io/en/stable/snakefiles/best_practices.html,
-# in particular regarding the standardized folder structure mentioned there. 
+# in particular regarding the standardized folder structure mentioned there.
 
 from snakemake.io import glob_wildcards, expand
 
+
 configfile: "config/config.yaml"
 
+
 # Prevents the 'download' rule from running on worker nodes
-localrules: all, download
+localrules:
+    all,
+    download,
+
 
 # load and set conda envs and modules from the config
 Q2CONDA = config["q2env"]
 Q2MOD = config["q2mod"]
 
-GOALS = expand("results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza",
-               ver=config["version"],
-               id=config["cluster"],
-               type=config["type"],
-               date=config["date"],
-               q2v=config["q2v"]
-               )
+GOALS = expand(
+    "results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza",
+    ver=config["version"],
+    id=config["cluster"],
+    type=config["type"],
+    date=config["date"],
+    q2v=config["q2v"],
+)
 # print(GOALS)
+
 
 rule all:
     input:
         #taxa="results/sh_taxa_qiime_{ver}_{id}_{type}{date}_dev.qza",
         #seqs="results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza"
-        GOALS
+        GOALS,
 
-checkpoint download: # This is not proper snakemake. I can't get my tuples to work.
+
+checkpoint download:  # This is not proper snakemake. I can't get my tuples to work.
     output:
         #ref=temp("downloads/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.fasta"),
         #tax=temp("downloads/sh_taxonomy_qiime_{ver}_{id}_{type}{date}_dev.txt")
         # Note the messy wildcards in rule.reformat_seqs and rule.import_tax this requires
-        dir=directory("downloads/")
-    log: "logs/downloads.log"
-    conda: "envs/unix-tools.yaml"
+        dir=directory("downloads/"),
+    log:
+        "logs/downloads.log",
+    conda:
+        "envs/unix-tools.yaml"
     shell:
         """
         mkdir -p downloads
@@ -45,66 +55,94 @@ checkpoint download: # This is not proper snakemake. I can't get my tuples to wo
         # To get URLs you can download directly, plug them into this API:
         # https://api.plutof.ut.ee/v1/public/dois/?format=api&identifier=10.15156/BIO/2483915
 
-        # 9.0	2023-07-18	Fungi	19 051	143 384	Current	https://doi.org/10.15156/BIO/2938079
+        # 9.0    2023-07-18    Fungi    19 051    143 384    Current    https://doi.org/10.15156/BIO/2938079
         wget -qO- https://files.plutof.ut.ee/public/orig/FB/78/FB78E30E44793FB02E5A4D3AE18EB4A6621A2FAEB7A4E94421B8F7B65D46CA4A.tgz | \
           tar xz -C downloads --strip-components 1 # sh_qiime_release_25.07.2023.tgz      # normal
 
-        # 9.0	2023-07-18	Fungi	19 051	187 443	Current	https://doi.org/10.15156/BIO/2938080
+        # 9.0    2023-07-18    Fungi    19 051    187 443    Current    https://doi.org/10.15156/BIO/2938080
         wget -qO- https://files.plutof.ut.ee/public/orig/37/71/3771274B094D9CA6252DF01359756B60A2FBEEF87854CC01C2577182DBB123C7.tgz | \
           tar xz -C downloads --strip-components 1 # sh_qiime_release_s_25.07.2023.tgz    # add s for 97% singletons
 
-        # 9.0	2023-07-18	All eukaryotes	19 451	215 454	Current	https://doi.org/10.15156/BIO/2938081
+        # 9.0    2023-07-18    All eukaryotes    19 451    215 454    Current    https://doi.org/10.15156/BIO/2938081
         wget -qO- https://files.plutof.ut.ee/public/orig/1C/C2/1CC2477429B3A703CC1C7A896A7EFF457BB0D471877CB8D18074959DBB630D10.tgz | \
           tar xz -C downloads --strip-components 1 # sh_qiime_release_all_25.07.2023.tgz  # add all for Euks
 
-        # 9.0	2023-07-18	All eukaryotes	19 451	307 276	Current	https://doi.org/10.15156/BIO/2938082
+        # 9.0    2023-07-18    All eukaryotes    19 451    307 276    Current    https://doi.org/10.15156/BIO/2938082
         wget -qO- https://files.plutof.ut.ee/public/orig/7D/0C/7D0C329980D2C644CC157A8C76BBD11E78DB8B13286C98D4FEB6ECAC79D67D6F.tgz | \
           tar xz -C downloads --strip-components 1 # sh_qiime_release_s_all_25.07.2023.tgz # and s and all for 97% Euks singletons
 
         """
 
+
 rule import_seqs:
-    input: "downloads"
-    output: temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza")
-    log: "logs/import_seqs_{ver}_{id}_{type}{date}.log"
-    conda: Q2CONDA
-    envmodules: Q2MOD
-    shell: "qiime tools import \
-            --type FeatureData[Sequence] \
-            --input-format MixedCaseDNAFASTAFormat \
-            --input-path {input}/sh_refs_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.fasta \
-            --output-path {output}"
+    input:
+        "downloads",
+    output:
+        temp("results/sh_refs_qiime_{ver}_{id}_{type}{date}_dev.qza"),
+    log:
+        "logs/import_seqs_{ver}_{id}_{type}{date}.log",
+    conda:
+        Q2CONDA
+    envmodules:
+        Q2MOD,
+    shell:
+        """
+        qiime tools import \
+        --type FeatureData[Sequence] \
+        --input-format MixedCaseDNAFASTAFormat \
+        --input-path {input}/sh_refs_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.fasta \
+        --output-path {output}
+        """
+
 
 rule import_tax:
-    input: "downloads"
-    output:temp("results/sh_taxa_qiime_{ver}_{id}_{type}{date}_dev.qza")
-    log: "logs/import_taxa_{ver}_{id}_{type}{date}.log"
-    conda: Q2CONDA
-    envmodules: Q2MOD
-    shell: "qiime tools import \
-            --type FeatureData[Taxonomy] \
-            --input-format HeaderlessTSVTaxonomyFormat \
-            --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
-            --output-path {output}"
+    input:
+        "downloads",
+    output:
+        temp("results/sh_taxa_qiime_{ver}_{id}_{type}{date}_dev.qza"),
+    log:
+        "logs/import_taxa_{ver}_{id}_{type}{date}.log",
+    conda:
+        Q2CONDA
+    envmodules:
+        Q2MOD,
+    shell:
+        """
+        qiime tools import \
+        --type FeatureData[Taxonomy] \
+        --input-format HeaderlessTSVTaxonomyFormat \
+        --input-path {input}/sh_taxonomy_qiime_{wildcards.ver}_{wildcards.id}_{wildcards.type}{wildcards.date}_dev.txt \
+        --output-path {output}
+        """
+
 
 def get_mem_mb(wildcards, attempt):
-    return (100 + attempt*40)*1000
+    return (100 + attempt * 40) * 1000
     #      ^100gb base, then 40gb more each time
+
 
 rule train:
     input:
         ref=rules.import_seqs.output,
-        tax=rules.import_tax.output
-    output: protected("results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza")
-    log: "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.log"
-    conda: Q2CONDA
-    envmodules: Q2MOD
-    benchmark: "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.tsv"
+        tax=rules.import_tax.output,
+    output:
+        protected("results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza"),
+    log:
+        "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.log",
+    conda:
+        Q2CONDA
+    envmodules:
+        Q2MOD,
+    benchmark:
+        "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.tsv"
     resources:
-        mem_mb=get_mem_mb, # see function above
-        runtime="24h"           # hopefully not
-    shell: "qiime feature-classifier fit-classifier-naive-bayes \
-            --p-classify--chunk-size 10000 \
-            --i-reference-reads    {input.ref} \
-            --i-reference-taxonomy {input.tax} \
-            --o-classifier {output}"
+        mem_mb=get_mem_mb,  # see function above
+        runtime="24h",  # hopefully not
+    shell:
+        """
+        qiime feature-classifier fit-classifier-naive-bayes \
+        --p-classify--chunk-size 10000 \
+        --i-reference-reads    {input.ref} \
+        --i-reference-taxonomy {input.tax} \
+        --o-classifier {output}
+        """
