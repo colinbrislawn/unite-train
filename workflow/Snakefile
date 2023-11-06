@@ -8,7 +8,9 @@ from snakemake.io import glob_wildcards, expand
 
 configfile: "config/config.yaml"
 
+
 include: "common.smk"  # python helper functions
+
 
 # Prevents the 'download' rule from running on worker nodes
 localrules:
@@ -19,6 +21,7 @@ localrules:
 # load and set conda envs and modules from the config
 Q2CONDA = config["q2env"]
 Q2MOD = config["q2mod"]
+Q2DOCKER = config["q2docker"]
 
 GOALS = expand(
     "results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza",
@@ -86,6 +89,8 @@ rule import_seqs:
         Q2CONDA
     envmodules:
         Q2MOD,
+    container:
+        Q2DOCKER
     shell:
         """
         qiime tools import \
@@ -107,6 +112,8 @@ rule import_tax:
         Q2CONDA
     envmodules:
         Q2MOD,
+    container:
+        Q2DOCKER
     shell:
         """
         qiime tools import \
@@ -129,10 +136,12 @@ rule train:
         Q2CONDA
     envmodules:
         Q2MOD,
+    container:
+        Q2DOCKER
     benchmark:
         "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.tsv"
     resources:
-        mem_mb=get_mem_mb,  # see function above
+        mem_mb=get_mem_mb,  # see common.smk
         runtime="24h",  # hopefully not
     shell:
         """

@@ -1,5 +1,7 @@
-# Qiime2 version number
+# Qiime2 target version number
 q2v: "2023.9"
+
+# Software setup:
 # Qiime2 conda environment
 # Get full file from from https://github.com/qiime2/environment-files
 q2env: "envs/qiime2-amplicon-2023.9-py38-linux-conda.yml"
@@ -7,6 +9,8 @@ q2env: "envs/qiime2-amplicon-2023.9-py38-linux-conda.yml"
 # q2env: "qiime2-amplicon-2023.9"
 # Or load a pre-installed module
 q2mod: "qiime2/2023.9"
+# Or pull a pre-built docker container
+q2docker: "docker://quay.io/qiime2/amplicon:2023.9"
 
 # UNITE Major version listed in file names
 version: "ver9"

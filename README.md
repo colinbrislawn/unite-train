@@ -46,7 +46,20 @@ snakemake --jobs 24 --slurm \
   --rerun-incomplete --retries 3 \
   --use-envmodules --latency-wait 10 \
   --default-resources slurm_account=kawahara slurm_partition=hpg-milan
+```
 
+</details>
+
+<details>
+  <summary>Run with Docker:</summary>
+
+Say, in 'the cloud' using [FlowDeploy](https://flowdeploy.com/).
+
+```bash
+snakemake --jobs 12 \
+  --rerun-incomplete --retries 3 \
+  --use-singularity \
+  --default-resources
 ```
 
 </details>
