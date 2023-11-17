@@ -16,6 +16,8 @@ include: "common.smk"  # python helper functions
 localrules:
     all,
     download,
+    import_seqs,
+    import_tax,
 
 
 # load and set conda envs and modules from the config

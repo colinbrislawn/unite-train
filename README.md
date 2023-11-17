@@ -56,10 +56,12 @@ snakemake --jobs 24 --slurm \
 Say, in 'the cloud' using [FlowDeploy](https://flowdeploy.com/).
 
 ```bash
-snakemake --jobs 12 \
-  --rerun-incomplete --retries 3 \
-  --use-singularity \
-  --default-resources
+# Snakemake folder name for run:
+# unite-train # default
+# Snakefile location
+# workflow/Snakefile # default
+# Command-line arguments:
+snakemake --jobs 1 --rerun-incomplete --retries 2 --use-singularity --default-resources
 ```
 
 </details>
