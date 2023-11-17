@@ -35,6 +35,13 @@ GOALS = expand(
 )
 # print(GOALS)
 
+wildcard_constraints:
+    ver="[a-z0-9\.]+",
+    id="[a-z0-9]+",
+    # The file name for the `type` of 'fungi only, no singletons' is an empty string
+    # See https://stackoverflow.com/questions/75548903/how-to-make-snakemake-wildcard-work-for-empty-string
+    type=".*",
+    date="\d\d\.\d\d\.\d\d\d\d",
 
 rule all:
     input:

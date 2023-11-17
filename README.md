@@ -24,10 +24,16 @@ Configure:
 - Open up `config/config.yaml` and configure it to your liking.
   (For example, you may need to update the name of your Qiime2 environment.)
 
-Run:
+Run the full pipeline, as configured:
 
 ```bash
 snakemake --cores 8 --use-conda --resources mem_mb=10000
+```
+
+Dry run (solves and prints and DAG, without running it):
+
+```bash
+snakemake --rerun-incomplete -n
 ```
 
 This takes about 15 hours on my machine
@@ -58,10 +64,14 @@ Say, in 'the cloud' using [FlowDeploy](https://flowdeploy.com/).
 ```bash
 # Snakemake folder name for run:
 # unite-train # default
+
 # Snakefile location
 # workflow/Snakefile # default
+
 # Command-line arguments:
-snakemake --jobs 1 --rerun-incomplete --retries 2 --use-singularity --default-resources
+--rerun-incomplete --retries 1 --use-singularity
+# Note that the `snakemake` command and `--jobs` are not needed on FlowDeploy
+# And maybe `--default-resources` is also not needed?
 ```
 
 </details>

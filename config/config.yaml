@@ -19,13 +19,14 @@ date: "25.07.2023"
 
 # UNITE Precluster percentage
 cluster:
-#  - "97" # If you need these, please let me know: https://github.com/colinbrislawn/unite-train/issues 
+#  - "97" # If you need these, please let me know: https://github.com/colinbrislawn/unite-train/issues
   - "99"
   - "dynamic"
 
 # UNITE Taxa scope and singleton inclusion
 type:
+# What tax scope is best? Discuss here: https://github.com/colinbrislawn/unite-train/issues/5
   - ""
-  - "s_"
+#  - "s_"
   - "all_"
-  - "s_all_"
+#  - "s_all_"
