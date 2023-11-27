@@ -138,7 +138,7 @@ rule train:
         ref=rules.import_seqs.output,
         tax=rules.import_tax.output,
     output:
-        protected("results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza"),
+        "results/unite_{ver}_{id}_{type}{date}-Q2-{q2v}.qza"
     log:
         "logs/train_{ver}_{id}_{type}{date}-Q2-{q2v}.log",
     conda:
@@ -154,6 +154,8 @@ rule train:
         runtime="24h",  # hopefully not
     shell:
         """
+        pwd
+        ls
         qiime feature-classifier fit-classifier-naive-bayes \
         --p-classify--chunk-size 10000 \
         --i-reference-reads    {input.ref} \
