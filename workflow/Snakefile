@@ -155,7 +155,7 @@ rule train:
     shell:
         """
         pwd
-        ls
+        ls results/
         qiime feature-classifier fit-classifier-naive-bayes \
         --p-classify--chunk-size 10000 \
         --i-reference-reads    {input.ref} \
