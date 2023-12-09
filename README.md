@@ -57,19 +57,28 @@ snakemake --jobs 24 --slurm \
 </details>
 
 <details>
-  <summary>Run with Docker:</summary>
+  <summary>Run with <a href="https://flowdeploy.com/">FlowDeploy</a>:</summary>
 
-Say, in 'the cloud' using [FlowDeploy](https://flowdeploy.com/).
+Not sponsored!
+
+Open [Data](https://app.flowdeploy.com/data) to find your file path `fd://whatever`
+
+![flowdeploy-path](resources/flowdeploy-file-path.png)
+
+Bind that path using `--singularity-args "--bind /whatever"``
 
 ```bash
+# Run location
+trialrootdir2 # default
+
 # Snakemake folder name for run:
-# unite-train # default
+# colinbrislawn/unite-train # default
 
 # Snakefile location
 # workflow/Snakefile # default
 
 # Command-line arguments:
---rerun-incomplete --retries 1 --use-singularity
+--rerun-incomplete --retries 3 --use-singularity --singularity-args "--bind /quirky-tesla"
 # Note that the `snakemake` command and `--jobs` are not needed on FlowDeploy
 # And maybe `--default-resources` is also not needed?
 ```
