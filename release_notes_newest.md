@@ -1,7 +1,11 @@
 ⚠️ This is a public demo, and has not been validated. I am not affiliated with the UNITE team.
 
-This is a classifier for [Unite v9.0](https://unite.ut.ee/repository.php) Version 18.07.2023 trained for use with [Qiime2 2023.9](https://docs.qiime2.org/2023.9/install/).
-These can be used with `q2-feature-classifier` like those found on the [Data resources page](https://docs.qiime2.org/2023.9/data-resources/).
+This is a classifier for [Unite v9.0](https://unite.ut.ee/repository.php)
+Version 18.07.2023 trained for use with
+[Qiime2 2024.2](https://docs.qiime2.org/2024.2/install/).
+
+These can be used with `q2-feature-classifier` like those found on the
+[Data resources page](https://docs.qiime2.org/2024.2/data-resources/).
 
 UNITE is licensed under CC BY-SA 4.0. If you use it, cite it! 🤝
 
@@ -13,8 +17,8 @@ UNITE is licensed under CC BY-SA 4.0. If you use it, cite it! 🤝
 
 Changes:
 
-- Update Qiime2 to version 2023.9
-- This should work with all three distributions: amplicon, shotgun, and tidy. If not, please [open an issue! ✅](https://github.com/colinbrislawn/unite-train/issues)
+- Update Qiime2 to version 2024.2
+- This should work with any distribution (like amplicon & shotgun). If not, please [open an issue! ✅](https://github.com/colinbrislawn/unite-train/issues)
 
 ---
 
