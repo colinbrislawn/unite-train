@@ -30,7 +30,7 @@ Run:
 snakemake --cores 8 --use-conda --resources mem_mb=10000
 ```
 
-This takes about 15 hours on my machine
+Training one classifier takes 1-9 hours on an [AMD EPYC 75F3 Milan](https://www.amd.com/en/products/cpu/amd-epyc-75f3), depending on the size and complexity of the data.
 
 <details>
   <summary>Run on a slurm cluster:</summary>

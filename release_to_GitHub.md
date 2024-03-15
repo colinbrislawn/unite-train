@@ -13,7 +13,7 @@ mamba install gh --channel conda-forge
 gh auth login
 ```
 
-## But first, test to see if output file even works
+## But first, spot-check one classifier
 
 ```bash
 mkdir -p /tmp/qiime2tmp
@@ -21,15 +21,16 @@ export TMPDIR="/tmp/qiime2tmp/"
 module load qiime2
 
 time qiime feature-classifier classify-sklearn \
-  --i-classifier unite_ver9_dynamic_25.07.2023-Q2-2024.2.qza \
-  --i-reads ../benchmarks/dada2-single-end-rep-seqs.qza \
-  --o-classification test-tax.qza
+  --i-classifier results/unite_ver9_dynamic_25.07.2023-Q2-2024.2.qza \
+  --i-reads benchmarks/dada2-single-end-rep-seqs.qza \
+  --p-n-jobs 4 \
+  --o-classification results/test-tax.qza
 
 qiime taxa barplot \
-  --i-table ../benchmarks/dada2-single-end-table.qza \
-  --i-taxonomy test-tax.qza \
-  --m-metadata-file ../benchmarks/mock-25-sample-metadata.tsv \
-  --o-visualization test-tax.qzv
+  --i-table benchmarks/dada2-single-end-table.qza \
+  --i-taxonomy results/test-tax.qza \
+  --m-metadata-file benchmarks/mock-25-sample-metadata.tsv \
+  --o-visualization results/test-tax.qzv
 
 # Cleanup
 rm -rf test-tax*
