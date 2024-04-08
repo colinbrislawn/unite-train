@@ -8,6 +8,9 @@ logs/**
 # Just in case downloads are left over
 downloads/*
 
+# Local Qiime2 tmp
+tmp/
+
 # R
 .Rhistory
 .Rapp.history

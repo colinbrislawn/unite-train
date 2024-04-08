@@ -16,12 +16,11 @@ gh auth login
 ## But first, spot-check one classifier
 
 ```bash
-mkdir -p /tmp/qiime2tmp
-export TMPDIR="/tmp/qiime2tmp/"
 module load qiime2
+# This makes a ./tpm/ folder in the working directory
 
 time qiime feature-classifier classify-sklearn \
-  --i-classifier results/unite_ver9_dynamic_25.07.2023-Q2-2024.2.qza \
+  --i-classifier results/unite_ver10_dynamic_04.04.2024-Q2-2024.2.qza \
   --i-reads benchmarks/dada2-single-end-rep-seqs.qza \
   --p-n-jobs 4 \
   --o-classification results/test-tax.qza
@@ -33,7 +32,8 @@ qiime taxa barplot \
   --o-visualization results/test-tax.qzv
 
 # Cleanup
-rm -rf test-tax*
+rm -f results/test-tax*
+rm -rf tmp/
 ```
 
 ## Create a new tag and release:
