@@ -1,6 +1,6 @@
 ⚠️ This is a public demo, and has not been validated. I am not affiliated with the UNITE team.
 
-This is a classifier for [Unite v10.0](https://unite.ut.ee/repository.php) Version 04.04.2023 trained for use with [Qiime2 2024.2](https://docs.qiime2.org/2024.2/install/).
+This is a classifier for [Unite v10.0](https://unite.ut.ee/repository.php) Version 04.04.2024 trained for use with [Qiime2 2024.2](https://docs.qiime2.org/2024.2/install/).
 
 These can be used with `q2-feature-classifier` like those found on the [Data resources page](https://docs.qiime2.org/2024.2/data-resources/).
 

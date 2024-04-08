@@ -39,14 +39,14 @@ rm -rf tmp/
 ## Create a new tag and release:
 
 ```bash
-newtag="v9.0-v25.07.2023-qiime2-2024.2"
+newtag="v10.0-v04.04.2024-qiime2-2024.2"
 
 gh release create ${newtag} \
   --draft \
   --latest \
   -F release_notes_newest.md \
   --prerelease  \
-  --title "UNITE v9.0 v25.07.2023 for qiime2-2024.2"
+  --title "UNITE v10.0 v04.04.2024 for qiime2-2024.2"
 ```
 
 ## Push files to this new release:
