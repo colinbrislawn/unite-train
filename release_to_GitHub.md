@@ -17,22 +17,28 @@ gh auth login
 
 ```bash
 module load qiime2
-# This makes a ./tpm/ folder in the working directory
+# This makes a ./tmp/ folder in the working directory
 
-time qiime feature-classifier classify-sklearn \
-  --i-classifier results/unite_ver10_dynamic_04.04.2024-Q2-2024.2.qza \
+rm -rf results/test/
+mkdir -p results/test/
+
+testfile="unite_ver10_dynamic_04.04.2024-Q2-2024.2"
+qiime tools peek results/${testfile}.qza
+
+qiime feature-classifier classify-sklearn \
   --i-reads benchmarks/dada2-single-end-rep-seqs.qza \
   --p-n-jobs 4 \
-  --o-classification results/test-tax.qza
-
+  --i-classifier     results/${testfile}.qza \
+  --o-classification results/test/${testfile}.qza
 qiime taxa barplot \
-  --i-table benchmarks/dada2-single-end-table.qza \
-  --i-taxonomy results/test-tax.qza \
+  --i-table        benchmarks/dada2-single-end-table.qza \
   --m-metadata-file benchmarks/mock-25-sample-metadata.tsv \
-  --o-visualization results/test-tax.qzv
+  --i-taxonomy      results/test/${testfile}.qza \
+  --o-visualization results/test/${testfile}.qzv
+rm -f results/test/${testfile}.qza # Keep viz only
 
 # Cleanup
-rm -f results/test-tax*
+rm -rf results/test/
 rm -rf tmp/
 ```
 
