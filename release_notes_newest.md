@@ -21,7 +21,7 @@ Changes:
 
 There are three levels of classification provided here:
 
-- "97", in which the database is clustered at 97% identity
+- "97", in which the database is clustered at 97% identity ([not recommended!](https://forum.qiime2.org/t/feature-classifier-classify-sklearn-all-rep-seqs-unassigned/5960/22))
 - "99", in which the database is clustered at 99% identity
 - "dynamic", which uses 97% to 99% identity as individually recommended by experts
 
