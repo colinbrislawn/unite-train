@@ -15,13 +15,15 @@ UNITE is licensed under CC BY-SA 4.0. If you use it, cite it! 🤝
 Changes:
 
 - Update Unite to Version 10!
+- Add 97% as requested in #8
 
 ---
 
-There are two levels of classification provided here:
+There are three levels of classification provided here:
 
-- "99", in which the database is clustered at 99% identity between taxa
-- "dynamic", which uses 97% to 99% identity between taxa, as individually recommended by experts in the field
+- "97", in which the database is clustered at 97% identity
+- "99", in which the database is clustered at 99% identity
+- "dynamic", which uses 97% to 99% identity as individually recommended by experts
 
 There are two taxa scopes:
 

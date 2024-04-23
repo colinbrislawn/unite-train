@@ -20,7 +20,7 @@ date: "04.04.2024"
 
 # UNITE Precluster percentage
 cluster:
-#  - "97" # If you need these, please let me know: https://github.com/colinbrislawn/unite-train/issues 
+  - "97" # as requested in https://github.com/colinbrislawn/unite-train/issues/8
   - "99"
   - "dynamic"
 
