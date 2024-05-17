@@ -13,39 +13,46 @@ mamba install gh --channel conda-forge
 gh auth login
 ```
 
-## But first, test to see if output file even works
+## But first, spot-check one classifier
 
 ```bash
-mkdir -p /tmp/qiime2tmp
-export TMPDIR="/tmp/qiime2tmp/"
 module load qiime2
+# This makes a ./tmp/ folder in the working directory
 
-time qiime feature-classifier classify-sklearn \
-  --i-classifier unite_ver9_dynamic_25.07.2023-Q2-2023.9.qza \
-  --i-reads ../benchmarks/dada2-single-end-rep-seqs.qza \
-  --o-classification test-tax.qza
+rm -rf results/test/
+mkdir -p results/test/
 
+testfile="unite_ver10_dynamic_04.04.2024-Q2-2024.2"
+qiime tools peek results/${testfile}.qza
+
+qiime feature-classifier classify-sklearn \
+  --i-reads benchmarks/dada2-single-end-rep-seqs.qza \
+  --p-n-jobs 4 \
+  --i-classifier     results/${testfile}.qza \
+  --o-classification results/test/${testfile}.qza
 qiime taxa barplot \
-  --i-table ../benchmarks/dada2-single-end-table.qza \
-  --i-taxonomy test-tax.qza \
-  --m-metadata-file ../benchmarks/mock-25-sample-metadata.tsv \
-  --o-visualization test-tax.qzv
+  --i-table        benchmarks/dada2-single-end-table.qza \
+  --m-metadata-file benchmarks/mock-25-sample-metadata.tsv \
+  --i-taxonomy      results/test/${testfile}.qza \
+  --o-visualization results/test/${testfile}.qzv
+rm -f results/test/${testfile}.qza # Keep viz only
 
 # Cleanup
-rm -rf test-tax*
+rm -rf results/test/
+rm -rf tmp/
 ```
 
 ## Create a new tag and release:
 
 ```bash
-newtag="v9.0-v25.07.2023-qiime2-2023.9"
+newtag="v10.0-v04.04.2024-qiime2-2024.2"
 
 gh release create ${newtag} \
   --draft \
   --latest \
   -F release_notes_newest.md \
   --prerelease  \
-  --title "UNITE v9.0 v25.07.2023 for qiime2-2023.9"
+  --title "UNITE v10.0 v04.04.2024 for qiime2-2024.2"
 ```
 
 ## Push files to this new release:

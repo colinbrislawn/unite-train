@@ -55,25 +55,25 @@ checkpoint download:  # This is not proper snakemake. I can't get my tuples to w
         """
         mkdir -p downloads
 
-        # Version 9 update. Get DOIs from here: https://unite.ut.ee/repository.php
+        # Version 10 update. Get DOIs from here: https://unite.ut.ee/repository.php
         # To get URLs you can download directly, plug them into this API:
         # https://api.plutof.ut.ee/v1/public/dois/?format=api&identifier=10.15156/BIO/2483915
 
-        # 9.0    2023-07-18    Fungi    19 051    143 384    Current    https://doi.org/10.15156/BIO/2938079
-        wget -qO- https://files.plutof.ut.ee/public/orig/FB/78/FB78E30E44793FB02E5A4D3AE18EB4A6621A2FAEB7A4E94421B8F7B65D46CA4A.tgz | \
-          tar xz -C downloads --strip-components 1 # sh_qiime_release_25.07.2023.tgz      # normal
+        # 10.0	2024-04-04	Fungi	18 895	74 190	Current	https://doi.org/10.15156/BIO/2959336
+        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/db1d6ddb-a35d-48c5-8b1a-ad9dd3310c6d.tgz | \
+          tar xz -C downloads --strip-components 1
 
-        # 9.0    2023-07-18    Fungi    19 051    187 443    Current    https://doi.org/10.15156/BIO/2938080
-        wget -qO- https://files.plutof.ut.ee/public/orig/37/71/3771274B094D9CA6252DF01359756B60A2FBEEF87854CC01C2577182DBB123C7.tgz | \
-          tar xz -C downloads --strip-components 1 # sh_qiime_release_s_25.07.2023.tgz    # add s for 97% singletons
+        # 10.0	2024-04-04	Fungi	18 895	140 300	Current	https://doi.org/10.15156/BIO/2959337
+        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/06daa092-e96a-48e7-9303-4402cc5c46c5.tgz | \
+          tar xz -C downloads --strip-components 1
 
-        # 9.0    2023-07-18    All eukaryotes    19 451    215 454    Current    https://doi.org/10.15156/BIO/2938081
-        wget -qO- https://files.plutof.ut.ee/public/orig/1C/C2/1CC2477429B3A703CC1C7A896A7EFF457BB0D471877CB8D18074959DBB630D10.tgz | \
-          tar xz -C downloads --strip-components 1 # sh_qiime_release_all_25.07.2023.tgz  # add all for Euks
+        # 10.0	2024-04-04	All eukaryotes	19 302	122 914	Current	https://doi.org/10.15156/BIO/2959338
+        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/711a503c-589d-4138-a76f-6a8b89460ecf.tgz | \
+          tar xz -C downloads --strip-components 1
 
-        # 9.0    2023-07-18    All eukaryotes    19 451    307 276    Current    https://doi.org/10.15156/BIO/2938082
-        wget -qO- https://files.plutof.ut.ee/public/orig/7D/0C/7D0C329980D2C644CC157A8C76BBD11E78DB8B13286C98D4FEB6ECAC79D67D6F.tgz | \
-          tar xz -C downloads --strip-components 1 # sh_qiime_release_s_all_25.07.2023.tgz # and s and all for 97% Euks singletons
+        # 10.0	2024-04-04	All eukaryotes	19 302	232 937	Current	https://doi.org/10.15156/BIO/2959339
+        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/55665851-81f9-4704-8287-b5971abbf85c.tgz | \
+          tar xz -C downloads --strip-components 1
 
         """
 
