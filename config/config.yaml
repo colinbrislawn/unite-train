@@ -1,17 +1,17 @@
 # Qiime2 target version number
-q2v: "2024.2"
+q2v: "2024.5"
 
 # Software setup:
 # Qiime2 conda environment
 # Get full file from from https://github.com/qiime2/distributions
-# or maybe https://docs.qiime2.org/2024.2/install/native/
-q2env: "envs/qiime2-amplicon-2024.2-py38-linux-conda.yml"
+# or maybe https://docs.qiime2.org/2024.5/install/native/
+q2env: "envs/qiime2-amplicon-2024.5-py38-linux-conda.yml"
 # Or specify name of already installed Qiime2 environment
-# q2env: "qiime2-amplicon-2024.2"
+# q2env: "qiime2-amplicon-2024.5"
 # Or load a pre-installed module
-q2mod: "qiime2/2024.2"
+q2mod: "qiime2/2024.5"
 # Or pull a pre-built docker container
-q2docker: "docker://quay.io/qiime2/amplicon:2024.2"
+q2docker: "docker://quay.io/qiime2/amplicon:2024.5"
 
 # UNITE Major version listed in file names
 version: "ver10"
