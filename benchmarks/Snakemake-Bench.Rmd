@@ -8,6 +8,8 @@ output: html_document
 ```{r setup0, include=FALSE}
 # library(phyloseq)
 library("tidyverse")
+library("ggpubr")
+library("plotly")
 # library("vegan")
 library("kableExtra")
 library("vroom")
@@ -35,14 +37,40 @@ lintr::lint("Snakemake-Bench.Rmd",
 )
 ```
 
+
 ## Goal 1: time and memory for one full run
+
+```{r, include=F, eval=F}
+# This is not the same input data. I'll have to get it from provenance or something...
+
+# super raw
+# cd downloads; wc -l *fasta
+qzas_raw <- 
+"unite_ver9_99_25.07.2023-Q2-2023.5.qza 403 MB
+unite_ver9_99_all_25.07.2023-Q2-2023.5.qza 599 MB
+unite_ver9_99_s_25.07.2023-Q2-2023.5.qza 504 MB
+unite_ver9_99_s_all_25.07.2023-Q2-2023.5.qza 810 MB
+unite_ver9_dynamic_25.07.2023-Q2-2023.5.qza 335 MB
+unite_ver9_dynamic_all_25.07.2023-Q2-2023.5.qza 499 MB
+unite_ver9_dynamic_s_25.07.2023-Q2-2023.5.qza 432 MB
+unite_ver9_dynamic_s_all_25.07.2023-Q2-2023.5.qza 705 MB"
+
+qzas <- qzas_raw |>
+  read_delim(col_names = c("path", "size"), delim = " ", extra = ) |>
+  mutate(path = str_remove(path, "unite_ver9_")) |>
+  mutate(path = str_remove(path, "_25.07.2023-Q2-2023.5.qza")) |>
+  select(-X3)
+
+```
 
 ```{r}
 bench1 <- fs::dir_ls(path = "one-run/", glob = "*tsv") %>%
   vroom(id = "path") %>%
   mutate(path = str_remove(path, "one-run/train_ver9_")) %>%
   mutate(path = str_remove(path, "_25.07.2023-Q2-2023.5.tsv")) %>%
-  separate(path, c("id", "type"), sep = "_", extra = "merge")
+  separate(path, c("id", "type"), sep = "_", extra = "merge", remove = F) |>
+  mutate(mem_GBs = max_vms/1024) |>
+  left_join(qzas)
 
 plotcolors <- scale_fill_brewer(palette = "Set2")
 
@@ -55,6 +83,18 @@ bench1 %>% ggplot(aes(x = type, y = max_rss / 1000, fill = id)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Maximum memory usage in GBs") +
   plotcolors
+```
+
+
+## Goal 1.A What are all these memories?
+
+Full [summary on StackOverflow](https://stackoverflow.com/a/66872577).
+
+```{r}
+bench1 |>
+  pivot_longer(starts_with("max"), values_to = "MB") |>
+  ggplot(aes(x = paste(id, type), y = MB/1024, fill = name)) +
+  geom_bar(stat = "identity", position = "dodge")
 ```
 
 ## Goal 2: time and memory ~ reads-per-chunk
@@ -91,3 +131,56 @@ bench2 %>% ggplot(aes(x = type, y = max_rss / 1000)) +
   plotcolors
 
 ```
+
+## Goal 3: What scales with memory? 
+
+```{r}
+bench1 |>
+  ggscatter(x = "s", y = "mem_GBs", add = "reg.line") +
+  # scale_x_log10() + scale_y_log10() +
+  stat_regline_equation(label.y = 1.2e2) +
+  stat_cor(label.y = 1.1e2)
+```
+
+```{r}
+bench1 |>
+  ggscatter(x = "io_in", y = "mem_GBs", add = "reg.line") +
+  # scale_x_log10() + scale_y_log10() +
+  stat_regline_equation(label.x = 7777, label.y = 1.2e2) +
+  stat_cor(label.x = 7777, , label.y = 1.1e2)
+```
+
+```{r}
+bench1 |>
+  ggscatter(x = "size", y = "max_vms", add = "reg.line") +
+  # scale_x_log10() + scale_y_log10() +
+  stat_regline_equation(label.x = 10, label.y = 1.2e5) +
+  stat_cor(label.x = 10, , label.y = 1.1e5)
+```
+
+```{r}
+bench1 |>
+  mutate(GBsOut = io_out/1024) |>
+  ggscatter(x = "GBsOut", y = "mem_GBs", add = "reg.line") +
+  # scale_x_log10() + scale_y_log10() +
+  stat_regline_equation(label.x = 10, label.y = 1.2e2) +
+  stat_cor(label.x = 10, , label.y = 1.1e2)
+```
+
+>Ladies and gentlemen, got 'em'
+
+```{r}
+ggplotly(
+  bench1 |>
+    mutate(GBsOut = io_out/1024) |>
+    ggplot(aes(x = GBsOut, y = mem_GBs, color = type, shape = id)) +
+    geom_point(size = 3) +
+    geom_line(alpha = 0.5, size = 2, aes(group = type)) +
+    scale_x_log10() + scale_y_log10()
+)
+```
+
+```{r, include=F, eval=F}
+rmarkdown::render("Snakemake-Bench.Rmd")
+```
+
