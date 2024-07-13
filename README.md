@@ -59,7 +59,7 @@ screen -r # to reconnect with this later on.
 snakemake --jobs 24 --slurm \
   --rerun-incomplete --retries 3 \
   --use-envmodules --latency-wait 10 \
-  --default-resources slurm_account=kawahara slurm_partition=hpg-milan
+  --default-resources slurm_account=kawahara-b slurm_partition=hpg-milan
 ```
 
 </details>

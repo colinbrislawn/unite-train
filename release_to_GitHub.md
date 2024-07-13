@@ -22,7 +22,7 @@ module load qiime2
 rm -rf results/test/
 mkdir -p results/test/
 
-testfile="unite_ver10_dynamic_04.04.2024-Q2-2024.2"
+testfile="unite_ver10_dynamic_04.04.2024-Q2-2024.5"
 qiime tools peek results/${testfile}.qza
 
 qiime feature-classifier classify-sklearn \
@@ -45,14 +45,14 @@ rm -rf tmp/
 ## Create a new tag and release:
 
 ```bash
-newtag="v10.0-v04.04.2024-qiime2-2024.2"
+newtag="v10.0-v04.04.2024-qiime2-2024.5"
 
 gh release create ${newtag} \
   --draft \
   --latest \
   -F release_notes_newest.md \
   --prerelease  \
-  --title "UNITE v10.0 v04.04.2024 for qiime2-2024.2"
+  --title "UNITE v10.0 v04.04.2024 for qiime2-2024.5"
 ```
 
 ## Push files to this new release:
