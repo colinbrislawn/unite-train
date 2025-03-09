@@ -19,10 +19,10 @@ gh auth login
 module load qiime2
 # This makes a ./tmp/ folder in the working directory
 
-rm -rf results/test/
+# rm -rf results/test/
 mkdir -p results/test/
 
-testfile="unite_ver10_dynamic_04.04.2024-Q2-2024.5"
+testfile="unite_ver10_dynamic_19.02.2025-Q2-2024.10"
 qiime tools peek results/${testfile}.qza
 
 qiime feature-classifier classify-sklearn \
@@ -38,21 +38,33 @@ qiime taxa barplot \
 rm -f results/test/${testfile}.qza # Keep viz only
 
 # Cleanup
-rm -rf results/test/
+# rm -rf results/test/
 rm -rf tmp/
+```
+
+## Search for old IDs in the files
+
+Using ripgrep to search for the strings. Only these two should be found
+
+```bash
+# old unite date. Should only find this line
+rg "04.04.2024" -g '!benchmarks/'
+
+# old qiime2 date. Should only find this line
+rg "2024.5" -g '!benchmarks/' -g '!workflow/envs'
 ```
 
 ## Create a new tag and release:
 
 ```bash
-newtag="v10.0-v04.04.2024-qiime2-2024.5"
+newtag="v10.0-2025-02-19-qiime2-2024.10"
 
 gh release create ${newtag} \
   --draft \
   --latest \
   -F release_notes_newest.md \
   --prerelease  \
-  --title "UNITE v10.0 v04.04.2024 for qiime2-2024.5"
+  --title "UNITE v10.0 2025-02-19 for qiime2-2024.10"
 ```
 
 ## Push files to this new release:
