@@ -15,7 +15,7 @@ q2docker: "docker://quay.io/qiime2/amplicon:2024.10"
 # UNITE Major version listed in file names
 version: "ver10"
 # UNITE Publication version listed in the file names
-date: "04.04.2024"
+date: "19.02.2025"
 
 # UNITE Precluster percentage
 cluster:

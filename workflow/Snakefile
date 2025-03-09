@@ -59,20 +59,20 @@ checkpoint download:  # This is not proper snakemake. I can't get my tuples to w
         # To get URLs you can download directly, plug them into this API:
         # https://api.plutof.ut.ee/v1/public/dois/?format=api&identifier=10.15156/BIO/2483915
 
-        # 10.0	2024-04-04	Fungi	18 895	74 190	Current	https://doi.org/10.15156/BIO/2959336
-        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/db1d6ddb-a35d-48c5-8b1a-ad9dd3310c6d.tgz | \
+        # 10.0	2025-02-19	Fungi	20 295	81 842	Current	https://doi.org/10.15156/BIO/3301241
+        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/6fa9d7a2-1d4a-4846-ab03-59a251f9477f.tgz | \
           tar xz -C downloads --strip-components 1
 
-        # 10.0	2024-04-04	Fungi	18 895	140 300	Current	https://doi.org/10.15156/BIO/2959337
-        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/06daa092-e96a-48e7-9303-4402cc5c46c5.tgz | \
+        # 10.0	2025-02-19	Fungi	20 295	147 735	Current	https://doi.org/10.15156/BIO/3301242
+        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/a277f79f-720e-4ff0-ac7d-c3334077453d.tgz | \
           tar xz -C downloads --strip-components 1
 
-        # 10.0	2024-04-04	All eukaryotes	19 302	122 914	Current	https://doi.org/10.15156/BIO/2959338
-        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/711a503c-589d-4138-a76f-6a8b89460ecf.tgz | \
+        # 10.0	2025-02-19	All eukaryotes	20 802	136 018	Current	https://doi.org/10.15156/BIO/3301243
+        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/0ee4ff53-bd04-454b-a937-af1f466bfe8b.tgz | \
           tar xz -C downloads --strip-components 1
 
-        # 10.0	2024-04-04	All eukaryotes	19 302	232 937	Current	https://doi.org/10.15156/BIO/2959339
-        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/55665851-81f9-4704-8287-b5971abbf85c.tgz | \
+        # 10.0	2025-02-19	All eukaryotes	20 802	245 787	Current	https://doi.org/10.15156/BIO/3301244
+        wget -qO- https://s3.hpc.ut.ee/plutof-public/original/41a1cf88-8b53-47d6-8f7c-121b1dc8be67.tgz | \
           tar xz -C downloads --strip-components 1
 
         """
