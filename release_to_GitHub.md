@@ -81,7 +81,7 @@ TODO: Investigate and fill this list with real files
 When using a wildcard like `results/*.qza`, if any of the files already exist, then the full command will fail.
 
 ```bash
-gh release upload ${newtag} results/*.qza
+gh release upload ${newtag} results/unite_*2024.10.qza
 
 gh release upload ${newtag} results/example.qza
 ```
