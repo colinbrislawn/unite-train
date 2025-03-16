@@ -41,7 +41,7 @@ Configure:
 Run:
 
 ```bash
-snakemake --cores 8 --use-conda --resources mem_mb=10000
+snakemake --cores 8 --sdm conda --resources mem_mb=10000
 ```
 
 Training one classifier takes 1-9 hours on an [AMD EPYC 75F3 Milan](https://www.amd.com/en/products/cpu/amd-epyc-75f3), depending on the size and complexity of the data.
@@ -58,7 +58,7 @@ screen -r # to reconnect with this later on.
 
 snakemake --jobs 24 --slurm \
   --rerun-incomplete --retries 3 \
-  --use-envmodules --latency-wait 10 \
+  --sdm envmodules --latency-wait 10 \
   --default-resources slurm_account=kawahara-b slurm_partition=hpg-milan
 ```
 
@@ -72,7 +72,7 @@ Say, in 'the cloud' using [FlowDeploy](https://flowdeploy.com/).
 ```bash
 snakemake --jobs 12 \
   --rerun-incomplete --retries 3 \
-  --use-singularity \
+  --sdm singularity \
   --default-resources
 ```
 
@@ -82,5 +82,5 @@ Reports:
 
 ```bash
 snakemake --report results/report.html
-snakemake --forceall --dag --dryrun | dot -Tpdf > results/dag.pdf
+snakemake --forceall --dag | dot -Tpdf > results/dag.pdf
 ```
