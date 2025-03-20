@@ -40,9 +40,14 @@ lintr::lint("Release-stats.Rmd",
 ```{r}
 # rvest does not work here because it can't run the javascript
 # So we use a third party tool
+# https://github.com/kefir500/github-release-stats
 
 # Install
 # volta install github-release-stats
+# Or https://stackoverflow.com/a/39981888
+# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+# nvm install node
+# npm i -g github-release-stats
 # Run
 # ghstats colinbrislawn unite-train -d > release.txt
 

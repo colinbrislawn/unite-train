@@ -1,206 +1,248 @@
 GitHub Release Stats
 Fetching colinbrislawn/unite-train stats...
 
+Name: UNITE v10.0 2025-02-19 for qiime2-2024.10
+Tag: v10.0-2025-02-19-qiime2-2024.10
+URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/204593283
+Published at: 2025-03-09T15:03:35Z
+Assets:
+  dag.pdf - 10 download(s)
+  report.html - 4 download(s)
+  unite_ver10_97_19.02.2025-Q2-2024.10.qza - 12 download(s)
+  unite_ver10_97_all_19.02.2025-Q2-2024.10.qza - 7 download(s)
+  unite_ver10_97_s_19.02.2025-Q2-2024.10.qza - 6 download(s)
+  unite_ver10_97_s_all_19.02.2025-Q2-2024.10.qza - 8 download(s)
+  unite_ver10_99_19.02.2025-Q2-2024.10.qza - 23 download(s)
+  unite_ver10_99_all_19.02.2025-Q2-2024.10.qza - 14 download(s)
+  unite_ver10_99_s_19.02.2025-Q2-2024.10.qza - 6 download(s)
+  unite_ver10_99_s_all_19.02.2025-Q2-2024.10.qza - 12 download(s)
+  unite_ver10_dynamic_19.02.2025-Q2-2024.10.qza - 39 download(s)
+  unite_ver10_dynamic_all_19.02.2025-Q2-2024.10.qza - 14 download(s)
+  unite_ver10_dynamic_s_19.02.2025-Q2-2024.10.qza - 10 download(s)
+  unite_ver10_dynamic_s_all_19.02.2025-Q2-2024.10.qza - 17 download(s)
+    182 total downloads
+
+Name: UNITE v10.0 v04.04.2024 for qiime2-2024.5
+Tag: v10.0-v04.04.2024-qiime2-2024.5
+URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/159239761
+Published at: 2024-06-06T17:44:48Z
+Assets:
+  dag.pdf - 92 download(s)
+  report.html - 100 download(s)
+  unite_ver10_97_04.04.2024-Q2-2024.5.qza - 94 download(s)
+  unite_ver10_97_all_04.04.2024-Q2-2024.5.qza - 44 download(s)
+  unite_ver10_97_s_04.04.2024-Q2-2024.5.qza - 24 download(s)
+  unite_ver10_97_s_all_04.04.2024-Q2-2024.5.qza - 29 download(s)
+  unite_ver10_99_04.04.2024-Q2-2024.5.qza - 233 download(s)
+  unite_ver10_99_all_04.04.2024-Q2-2024.5.qza - 170 download(s)
+  unite_ver10_99_s_04.04.2024-Q2-2024.5.qza - 97 download(s)
+  unite_ver10_99_s_all_04.04.2024-Q2-2024.5.qza - 153 download(s)
+  unite_ver10_dynamic_04.04.2024-Q2-2024.5.qza - 178 download(s)
+  unite_ver10_dynamic_all_04.04.2024-Q2-2024.5.qza - 163 download(s)
+  unite_ver10_dynamic_s_04.04.2024-Q2-2024.5.qza - 96 download(s)
+  unite_ver10_dynamic_s_all_04.04.2024-Q2-2024.5.qza - 137 download(s)
+    1610 total downloads
+
 Name: UNITE v10.0 v04.04.2024 for qiime2-2024.2
 Tag: v10.0-v04.04.2024-qiime2-2024.2
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/150246451
 Published at: 2024-04-08T15:34:48Z
 Assets:
-  dag.pdf - 12 download(s)
-  report.html - 11 download(s)
-  unite_ver10_97_04.04.2024-Q2-2024.2.qza - 11 download(s)
-  unite_ver10_97_all_04.04.2024-Q2-2024.2.qza - 8 download(s)
-  unite_ver10_97_s_04.04.2024-Q2-2024.2.qza - 4 download(s)
-  unite_ver10_97_s_all_04.04.2024-Q2-2024.2.qza - 3 download(s)
-  unite_ver10_99_04.04.2024-Q2-2024.2.qza - 28 download(s)
-  unite_ver10_99_all_04.04.2024-Q2-2024.2.qza - 24 download(s)
-  unite_ver10_99_s_04.04.2024-Q2-2024.2.qza - 11 download(s)
-  unite_ver10_99_s_all_04.04.2024-Q2-2024.2.qza - 16 download(s)
-  unite_ver10_dynamic_04.04.2024-Q2-2024.2.qza - 26 download(s)
-  unite_ver10_dynamic_all_04.04.2024-Q2-2024.2.qza - 24 download(s)
-  unite_ver10_dynamic_s_04.04.2024-Q2-2024.2.qza - 12 download(s)
-  unite_ver10_dynamic_s_all_04.04.2024-Q2-2024.2.qza - 19 download(s)
-    209 total downloads
+  dag.pdf - 38 download(s)
+  report.html - 41 download(s)
+  unite_ver10_97_04.04.2024-Q2-2024.2.qza - 65 download(s)
+  unite_ver10_97_all_04.04.2024-Q2-2024.2.qza - 39 download(s)
+  unite_ver10_97_s_04.04.2024-Q2-2024.2.qza - 20 download(s)
+  unite_ver10_97_s_all_04.04.2024-Q2-2024.2.qza - 26 download(s)
+  unite_ver10_99_04.04.2024-Q2-2024.2.qza - 112 download(s)
+  unite_ver10_99_all_04.04.2024-Q2-2024.2.qza - 89 download(s)
+  unite_ver10_99_s_04.04.2024-Q2-2024.2.qza - 67 download(s)
+  unite_ver10_99_s_all_04.04.2024-Q2-2024.2.qza - 81 download(s)
+  unite_ver10_dynamic_04.04.2024-Q2-2024.2.qza - 73 download(s)
+  unite_ver10_dynamic_all_04.04.2024-Q2-2024.2.qza - 74 download(s)
+  unite_ver10_dynamic_s_04.04.2024-Q2-2024.2.qza - 47 download(s)
+  unite_ver10_dynamic_s_all_04.04.2024-Q2-2024.2.qza - 71 download(s)
+    843 total downloads
 
 Name: UNITE v9.0 v25.07.2023 for qiime2-2024.2
 Tag: v9.0-v25.07.2023-qiime2-2024.2
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/146800251
 Published at: 2024-03-15T15:25:24Z
 Assets:
-  dag.pdf - 7 download(s)
-  report.html - 9 download(s)
-  test-tax.qza - 5 download(s)
-  unite_ver9_99_25.07.2023-Q2-2024.2.qza - 21 download(s)
-  unite_ver9_99_all_25.07.2023-Q2-2024.2.qza - 14 download(s)
-  unite_ver9_99_s_25.07.2023-Q2-2024.2.qza - 9 download(s)
-  unite_ver9_99_s_all_25.07.2023-Q2-2024.2.qza - 7 download(s)
-  unite_ver9_dynamic_25.07.2023-Q2-2024.2.qza - 22 download(s)
-  unite_ver9_dynamic_all_25.07.2023-Q2-2024.2.qza - 14 download(s)
-  unite_ver9_dynamic_s_25.07.2023-Q2-2024.2.qza - 5 download(s)
-  unite_ver9_dynamic_s_all_25.07.2023-Q2-2024.2.qza - 8 download(s)
-    121 total downloads
+  dag.pdf - 11 download(s)
+  report.html - 14 download(s)
+  test-tax.qza - 9 download(s)
+  unite_ver9_99_25.07.2023-Q2-2024.2.qza - 40 download(s)
+  unite_ver9_99_all_25.07.2023-Q2-2024.2.qza - 29 download(s)
+  unite_ver9_99_s_25.07.2023-Q2-2024.2.qza - 16 download(s)
+  unite_ver9_99_s_all_25.07.2023-Q2-2024.2.qza - 20 download(s)
+  unite_ver9_dynamic_25.07.2023-Q2-2024.2.qza - 32 download(s)
+  unite_ver9_dynamic_all_25.07.2023-Q2-2024.2.qza - 23 download(s)
+  unite_ver9_dynamic_s_25.07.2023-Q2-2024.2.qza - 11 download(s)
+  unite_ver9_dynamic_s_all_25.07.2023-Q2-2024.2.qza - 21 download(s)
+    226 total downloads
 
 Name: UNITE v9.0 v25.07.2023 for qiime2-2023.9
 Tag: v9.0-v25.07.2023-qiime2-2023.9
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/127554408
 Published at: 2023-11-01T16:31:32Z
 Assets:
-  dag.pdf - 59 download(s)
-  report.html - 53 download(s)
-  unite_ver9_99_25.07.2023-Q2-2023.9.qza - 252 download(s)
-  unite_ver9_99_all_25.07.2023-Q2-2023.9.qza - 53 download(s)
-  unite_ver9_99_s_25.07.2023-Q2-2023.9.qza - 32 download(s)
-  unite_ver9_99_s_all_25.07.2023-Q2-2023.9.qza - 42 download(s)
-  unite_ver9_dynamic_25.07.2023-Q2-2023.9.qza - 142 download(s)
-  unite_ver9_dynamic_all_25.07.2023-Q2-2023.9.qza - 117 download(s)
-  unite_ver9_dynamic_s_25.07.2023-Q2-2023.9.qza - 47 download(s)
-  unite_ver9_dynamic_s_all_25.07.2023-Q2-2023.9.qza - 87 download(s)
-    884 total downloads
+  dag.pdf - 64 download(s)
+  report.html - 60 download(s)
+  unite_ver9_99_25.07.2023-Q2-2023.9.qza - 269 download(s)
+  unite_ver9_99_all_25.07.2023-Q2-2023.9.qza - 69 download(s)
+  unite_ver9_99_s_25.07.2023-Q2-2023.9.qza - 44 download(s)
+  unite_ver9_99_s_all_25.07.2023-Q2-2023.9.qza - 55 download(s)
+  unite_ver9_dynamic_25.07.2023-Q2-2023.9.qza - 156 download(s)
+  unite_ver9_dynamic_all_25.07.2023-Q2-2023.9.qza - 147 download(s)
+  unite_ver9_dynamic_s_25.07.2023-Q2-2023.9.qza - 57 download(s)
+  unite_ver9_dynamic_s_all_25.07.2023-Q2-2023.9.qza - 99 download(s)
+    1020 total downloads
 
 Name: UNITE v9.0 v25.07.2023 for qiime2-2023.7
 Tag: v9.0-v25.07.2023-qiime2-2023.7
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/118827102
 Published at: 2023-08-27T02:37:05Z
 Assets:
-  dag.pdf - 32 download(s)
-  report.html - 48 download(s)
-  unite_ver9_99_25.07.2023-Q2-2023.7.qza - 75 download(s)
-  unite_ver9_99_all_25.07.2023-Q2-2023.7.qza - 42 download(s)
-  unite_ver9_99_s_25.07.2023-Q2-2023.7.qza - 20 download(s)
-  unite_ver9_99_s_all_25.07.2023-Q2-2023.7.qza - 34 download(s)
-  unite_ver9_dynamic_25.07.2023-Q2-2023.7.qza - 53 download(s)
-  unite_ver9_dynamic_all_25.07.2023-Q2-2023.7.qza - 29 download(s)
-  unite_ver9_dynamic_s_25.07.2023-Q2-2023.7.qza - 26 download(s)
-  unite_ver9_dynamic_s_all_25.07.2023-Q2-2023.7.qza - 24 download(s)
-    383 total downloads
+  dag.pdf - 36 download(s)
+  report.html - 53 download(s)
+  unite_ver9_99_25.07.2023-Q2-2023.7.qza - 98 download(s)
+  unite_ver9_99_all_25.07.2023-Q2-2023.7.qza - 64 download(s)
+  unite_ver9_99_s_25.07.2023-Q2-2023.7.qza - 28 download(s)
+  unite_ver9_99_s_all_25.07.2023-Q2-2023.7.qza - 42 download(s)
+  unite_ver9_dynamic_25.07.2023-Q2-2023.7.qza - 64 download(s)
+  unite_ver9_dynamic_all_25.07.2023-Q2-2023.7.qza - 38 download(s)
+  unite_ver9_dynamic_s_25.07.2023-Q2-2023.7.qza - 32 download(s)
+  unite_ver9_dynamic_s_all_25.07.2023-Q2-2023.7.qza - 32 download(s)
+    487 total downloads
 
 Name: Demo! UNITE v9.0 v25.07.2023 for qiime2-2023.5
 Tag: v9.0-v25.07.2023-qiime2-2023.5
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/115063702
 Published at: 2023-08-04T05:18:51Z
 Assets:
-  dag.pdf - 6 download(s)
-  report.html - 7 download(s)
-  unite_ver9_99_25.07.2023-Q2-2023.5.qza - 36 download(s)
-  unite_ver9_99_all_25.07.2023-Q2-2023.5.qza - 17 download(s)
-  unite_ver9_99_s_25.07.2023-Q2-2023.5.qza - 5 download(s)
-  unite_ver9_99_s_all_25.07.2023-Q2-2023.5.qza - 10 download(s)
-  unite_ver9_dynamic_25.07.2023-Q2-2023.5.qza - 14 download(s)
-  unite_ver9_dynamic_all_25.07.2023-Q2-2023.5.qza - 7 download(s)
-  unite_ver9_dynamic_s_25.07.2023-Q2-2023.5.qza - 8 download(s)
-  unite_ver9_dynamic_s_all_25.07.2023-Q2-2023.5.qza - 12 download(s)
-    122 total downloads
+  dag.pdf - 12 download(s)
+  report.html - 16 download(s)
+  unite_ver9_99_25.07.2023-Q2-2023.5.qza - 48 download(s)
+  unite_ver9_99_all_25.07.2023-Q2-2023.5.qza - 28 download(s)
+  unite_ver9_99_s_25.07.2023-Q2-2023.5.qza - 11 download(s)
+  unite_ver9_99_s_all_25.07.2023-Q2-2023.5.qza - 20 download(s)
+  unite_ver9_dynamic_25.07.2023-Q2-2023.5.qza - 21 download(s)
+  unite_ver9_dynamic_all_25.07.2023-Q2-2023.5.qza - 21 download(s)
+  unite_ver9_dynamic_s_25.07.2023-Q2-2023.5.qza - 23 download(s)
+  unite_ver9_dynamic_s_all_25.07.2023-Q2-2023.5.qza - 28 download(s)
+    228 total downloads
 
 Name: Demo! UNITE v9.0 for qiime2-2023.5
 Tag: 9.0-qiime2-2023.5-demo
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/104406307
 Published at: 2023-05-26T14:18:24Z
 Assets:
-  dag.pdf - 19 download(s)
-  report.html - 28 download(s)
-  unite_ver9_99_29.11.2022-Q2-2023.5.qza - 39 download(s)
-  unite_ver9_99_all_29.11.2022-Q2-2023.5.qza - 28 download(s)
-  unite_ver9_99_s_29.11.2022-Q2-2023.5.qza - 14 download(s)
-  unite_ver9_99_s_all_29.11.2022-Q2-2023.5.qza - 22 download(s)
-  unite_ver9_dynamic_29.11.2022-Q2-2023.5.qza - 29 download(s)
-  unite_ver9_dynamic_all_29.11.2022-Q2-2023.5.qza - 25 download(s)
-  unite_ver9_dynamic_s_29.11.2022-Q2-2023.5.qza - 19 download(s)
-  unite_ver9_dynamic_s_all_29.11.2022-Q2-2023.5.qza - 24 download(s)
-    247 total downloads
+  dag.pdf - 22 download(s)
+  report.html - 32 download(s)
+  unite_ver9_99_29.11.2022-Q2-2023.5.qza - 44 download(s)
+  unite_ver9_99_all_29.11.2022-Q2-2023.5.qza - 34 download(s)
+  unite_ver9_99_s_29.11.2022-Q2-2023.5.qza - 18 download(s)
+  unite_ver9_99_s_all_29.11.2022-Q2-2023.5.qza - 25 download(s)
+  unite_ver9_dynamic_29.11.2022-Q2-2023.5.qza - 35 download(s)
+  unite_ver9_dynamic_all_29.11.2022-Q2-2023.5.qza - 28 download(s)
+  unite_ver9_dynamic_s_29.11.2022-Q2-2023.5.qza - 22 download(s)
+  unite_ver9_dynamic_s_all_29.11.2022-Q2-2023.5.qza - 31 download(s)
+    291 total downloads
 
 Name: Demo! UNITE v9.0 for qiime2-2023.2
 Tag: 9.0-qiime2-2023.2-demo
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/94513131
 Published at: 2023-03-05T01:43:29Z
 Assets:
-  report.html - 25 download(s)
-  unite_ver9_99_29.11.2022-Q2-2023.2.qza - 222 download(s)
-  unite_ver9_99_all_29.11.2022-Q2-2023.2.qza - 105 download(s)
-  unite_ver9_99_s_29.11.2022-Q2-2023.2.qza - 21 download(s)
-  unite_ver9_99_s_all_29.11.2022-Q2-2023.2.qza - 22 download(s)
-  unite_ver9_dynamic_29.11.2022-Q2-2023.2.qza - 34 download(s)
-  unite_ver9_dynamic_all_29.11.2022-Q2-2023.2.qza - 38 download(s)
-  unite_ver9_dynamic_s_29.11.2022-Q2-2023.2.qza - 39 download(s)
-  unite_ver9_dynamic_s_all_29.11.2022-Q2-2023.2.qza - 38 download(s)
-    544 total downloads
+  report.html - 31 download(s)
+  unite_ver9_99_29.11.2022-Q2-2023.2.qza - 271 download(s)
+  unite_ver9_99_all_29.11.2022-Q2-2023.2.qza - 123 download(s)
+  unite_ver9_99_s_29.11.2022-Q2-2023.2.qza - 33 download(s)
+  unite_ver9_99_s_all_29.11.2022-Q2-2023.2.qza - 30 download(s)
+  unite_ver9_dynamic_29.11.2022-Q2-2023.2.qza - 49 download(s)
+  unite_ver9_dynamic_all_29.11.2022-Q2-2023.2.qza - 50 download(s)
+  unite_ver9_dynamic_s_29.11.2022-Q2-2023.2.qza - 69 download(s)
+  unite_ver9_dynamic_s_all_29.11.2022-Q2-2023.2.qza - 48 download(s)
+    704 total downloads
 
 Name: Demo! UNITE v9.0 for qiime2-2022.11
 Tag: 9.0-qiime2-2022.11-demo
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/91012629
 Published at: 2023-02-01T20:14:09Z
 Assets:
-  report.html - 10 download(s)
-  unite_ver9_97_29.11.2022-Q2-2022.11.qza - 12 download(s)
-  unite_ver9_97_all_29.11.2022-Q2-2022.11.qza - 8 download(s)
-  unite_ver9_97_s_29.11.2022-Q2-2022.11.qza - 6 download(s)
-  unite_ver9_97_s_all_29.11.2022-Q2-2022.11.qza - 6 download(s)
-  unite_ver9_99_29.11.2022-Q2-2022.11.qza - 24 download(s)
-  unite_ver9_99_all_29.11.2022-Q2-2022.11.qza - 11 download(s)
-  unite_ver9_99_s_29.11.2022-Q2-2022.11.qza - 7 download(s)
-  unite_ver9_99_s_all_29.11.2022-Q2-2022.11.qza - 9 download(s)
-  unite_ver9_dynamic_29.11.2022-Q2-2022.11.qza - 17 download(s)
-  unite_ver9_dynamic_all_29.11.2022-Q2-2022.11.qza - 16 download(s)
-  unite_ver9_dynamic_s_29.11.2022-Q2-2022.11.qza - 6 download(s)
-  unite_ver9_dynamic_s_all_29.11.2022-Q2-2022.11.qza - 16 download(s)
-    148 total downloads
+  report.html - 19 download(s)
+  unite_ver9_97_29.11.2022-Q2-2022.11.qza - 22 download(s)
+  unite_ver9_97_all_29.11.2022-Q2-2022.11.qza - 15 download(s)
+  unite_ver9_97_s_29.11.2022-Q2-2022.11.qza - 13 download(s)
+  unite_ver9_97_s_all_29.11.2022-Q2-2022.11.qza - 13 download(s)
+  unite_ver9_99_29.11.2022-Q2-2022.11.qza - 41 download(s)
+  unite_ver9_99_all_29.11.2022-Q2-2022.11.qza - 23 download(s)
+  unite_ver9_99_s_29.11.2022-Q2-2022.11.qza - 15 download(s)
+  unite_ver9_99_s_all_29.11.2022-Q2-2022.11.qza - 17 download(s)
+  unite_ver9_dynamic_29.11.2022-Q2-2022.11.qza - 28 download(s)
+  unite_ver9_dynamic_all_29.11.2022-Q2-2022.11.qza - 30 download(s)
+  unite_ver9_dynamic_s_29.11.2022-Q2-2022.11.qza - 19 download(s)
+  unite_ver9_dynamic_s_all_29.11.2022-Q2-2022.11.qza - 25 download(s)
+    280 total downloads
 
 Name: Demo! qiime2-2022.8-v8.3
 Tag: 8.3-qiime2-2022.8-demo
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/76901275
 Published at: 2022-09-12T14:46:40Z
 Assets:
-  dag.pdf - 17 download(s)
-  report.html - 67 download(s)
-  unite_ver8_97_10.05.2021-Q2-2022.8.qza - 57 download(s)
-  unite_ver8_97_all_10.05.2021-Q2-2022.8.qza - 61 download(s)
-  unite_ver8_97_s_10.05.2021-Q2-2022.8.qza - 54 download(s)
-  unite_ver8_97_s_all_10.05.2021-Q2-2022.8.qza - 51 download(s)
-  unite_ver8_99_10.05.2021-Q2-2022.8.qza - 59 download(s)
-  unite_ver8_99_all_10.05.2021-Q2-2022.8.qza - 57 download(s)
-  unite_ver8_99_s_10.05.2021-Q2-2022.8.qza - 59 download(s)
-  unite_ver8_99_s_all_10.05.2021-Q2-2022.8.qza - 60 download(s)
-  unite_ver8_dynamic_10.05.2021-Q2-2022.8.qza - 71 download(s)
-  unite_ver8_dynamic_all_10.05.2021-Q2-2022.8.qza - 72 download(s)
-  unite_ver8_dynamic_s_10.05.2021-Q2-2022.8.qza - 57 download(s)
-  unite_ver8_dynamic_s_all_10.05.2021-Q2-2022.8.qza - 57 download(s)
-    799 total downloads
+  dag.pdf - 21 download(s)
+  report.html - 70 download(s)
+  unite_ver8_97_10.05.2021-Q2-2022.8.qza - 64 download(s)
+  unite_ver8_97_all_10.05.2021-Q2-2022.8.qza - 66 download(s)
+  unite_ver8_97_s_10.05.2021-Q2-2022.8.qza - 58 download(s)
+  unite_ver8_97_s_all_10.05.2021-Q2-2022.8.qza - 54 download(s)
+  unite_ver8_99_10.05.2021-Q2-2022.8.qza - 66 download(s)
+  unite_ver8_99_all_10.05.2021-Q2-2022.8.qza - 62 download(s)
+  unite_ver8_99_s_10.05.2021-Q2-2022.8.qza - 66 download(s)
+  unite_ver8_99_s_all_10.05.2021-Q2-2022.8.qza - 64 download(s)
+  unite_ver8_dynamic_10.05.2021-Q2-2022.8.qza - 75 download(s)
+  unite_ver8_dynamic_all_10.05.2021-Q2-2022.8.qza - 77 download(s)
+  unite_ver8_dynamic_s_10.05.2021-Q2-2022.8.qza - 62 download(s)
+  unite_ver8_dynamic_s_all_10.05.2021-Q2-2022.8.qza - 63 download(s)
+    868 total downloads
 
 Name: Demo! qiime2-2022.2-v8.3
 Tag: 8.3-qiime2-2022.2-demo
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/60135404
 Published at: 2022-02-22T16:32:22Z
 Assets:
-  dag.pdf - 13 download(s)
-  report.html - 15 download(s)
-  unite_ver8_97_10.05.2021-Q2-2022.2.qza - 11 download(s)
-  unite_ver8_97_all_10.05.2021-Q2-2022.2.qza - 11 download(s)
-  unite_ver8_97_s_10.05.2021-Q2-2022.2.qza - 8 download(s)
-  unite_ver8_97_s_all_10.05.2021-Q2-2022.2.qza - 8 download(s)
-  unite_ver8_99_10.05.2021-Q2-2022.2.qza - 13 download(s)
-  unite_ver8_99_all_10.05.2021-Q2-2022.2.qza - 13 download(s)
-  unite_ver8_99_s_10.05.2021-Q2-2022.2.qza - 20 download(s)
-  unite_ver8_99_s_all_10.05.2021-Q2-2022.2.qza - 18 download(s)
-  unite_ver8_dynamic_10.05.2021-Q2-2022.2.qza - 20 download(s)
-  unite_ver8_dynamic_all_10.05.2021-Q2-2022.2.qza - 16 download(s)
-  unite_ver8_dynamic_s_10.05.2021-Q2-2022.2.qza - 12 download(s)
-  unite_ver8_dynamic_s_all_10.05.2021-Q2-2022.2.qza - 15 download(s)
-    193 total downloads
+  dag.pdf - 15 download(s)
+  report.html - 18 download(s)
+  unite_ver8_97_10.05.2021-Q2-2022.2.qza - 14 download(s)
+  unite_ver8_97_all_10.05.2021-Q2-2022.2.qza - 16 download(s)
+  unite_ver8_97_s_10.05.2021-Q2-2022.2.qza - 12 download(s)
+  unite_ver8_97_s_all_10.05.2021-Q2-2022.2.qza - 11 download(s)
+  unite_ver8_99_10.05.2021-Q2-2022.2.qza - 18 download(s)
+  unite_ver8_99_all_10.05.2021-Q2-2022.2.qza - 22 download(s)
+  unite_ver8_99_s_10.05.2021-Q2-2022.2.qza - 23 download(s)
+  unite_ver8_99_s_all_10.05.2021-Q2-2022.2.qza - 23 download(s)
+  unite_ver8_dynamic_10.05.2021-Q2-2022.2.qza - 25 download(s)
+  unite_ver8_dynamic_all_10.05.2021-Q2-2022.2.qza - 21 download(s)
+  unite_ver8_dynamic_s_10.05.2021-Q2-2022.2.qza - 15 download(s)
+  unite_ver8_dynamic_s_all_10.05.2021-Q2-2022.2.qza - 23 download(s)
+    256 total downloads
 
 Name: Demo! qiime2-2021.11-v8.3
 Tag: 8.3-qiime2-2021.11-demo
 URL: https://api.github.com/repos/colinbrislawn/unite-train/releases/57416601
 Published at: 2022-01-19T00:17:46Z
 Assets:
-  dag.pdf - 16 download(s)
-  report.html - 22 download(s)
-  unite_ver8_99_10.05.2021.qza - 15 download(s)
-  unite_ver8_99_all_10.05.2021.qza - 20 download(s)
-  unite_ver8_99_s_10.05.2021.qza - 21 download(s)
-  unite_ver8_99_s_all_10.05.2021.qza - 23 download(s)
-  unite_ver8_dynamic_10.05.2021.qza - 31 download(s)
-  unite_ver8_dynamic_all_10.05.2021.qza - 31 download(s)
-  unite_ver8_dynamic_s_10.05.2021.qza - 25 download(s)
-  unite_ver8_dynamic_s_all_10.05.2021.qza - 28 download(s)
-    232 total downloads
+  dag.pdf - 19 download(s)
+  report.html - 27 download(s)
+  unite_ver8_99_10.05.2021.qza - 26 download(s)
+  unite_ver8_99_all_10.05.2021.qza - 33 download(s)
+  unite_ver8_99_s_10.05.2021.qza - 25 download(s)
+  unite_ver8_99_s_all_10.05.2021.qza - 27 download(s)
+  unite_ver8_dynamic_10.05.2021.qza - 36 download(s)
+  unite_ver8_dynamic_all_10.05.2021.qza - 35 download(s)
+  unite_ver8_dynamic_s_10.05.2021.qza - 28 download(s)
+  unite_ver8_dynamic_s_all_10.05.2021.qza - 34 download(s)
+    290 total downloads
 
-3882 total downloads
+7285 total downloads
