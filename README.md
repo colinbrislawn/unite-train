@@ -84,3 +84,9 @@ Reports:
 snakemake --report results/report.html
 snakemake --forceall --dag | dot -Tpdf > results/dag.pdf
 ```
+
+## Downloads
+
+![Downloads Time](./benchmarks/downloads_time.png)
+
+![Downloads Types](./benchmarks/downloads_types.png)

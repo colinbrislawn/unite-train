@@ -1,7 +1,7 @@
 ---
 title: "GitHub Release Stats"
 author: "Colin J. Brislawn"
-date: "May 16, 2024"
+date: "March 19, 2025"
 output: html_document
 ---
 
@@ -92,10 +92,11 @@ release_data2 <- release_data |>
            str_remove("Tag: ")) |>
   extract(Tag, c("UNITE", "QIIME2_Version"), regex = "(.*)-qiime2-(20.*)") |>
   separate(UNITE, c("unite_version", "unite_date"), sep = "-") |>
+  separate(QIIME2_Version, c("q2year", "q2month"), remove = FALSE) |>
   mutate(
     unite_version = unite_version |> str_remove("^v") |> as.numeric() |> as_factor(),
-  ) |>
-  separate(QIIME2_Version, c("q2year", "q2month"), remove = FALSE)
+    q2month = factor(q2month, levels = sort(unique(as.integer(q2month))))
+  )
 
 # release_data2 |>
 #   select(unite_version, unite_date) |>
@@ -108,7 +109,7 @@ release_data2 |>
   ggplot(aes(q2month, downloads, fill = unite_version)) +
   geom_bar(stat = "identity", position = "stack") +
   scale_fill_viridis(discrete = TRUE, begin = 0.2, end = 0.6) +
-  facet_grid(~q2year, scales = "free_x", space = "free") +
+  facet_grid(~q2year, scales = "free", space = "free") +
   labs(title = "Downloads over time")
 ggsave("downloads_time.png", height = 4)
 ```
