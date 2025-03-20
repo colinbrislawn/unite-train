@@ -16,16 +16,24 @@ gh auth login
 ## But first, spot-check one classifier
 
 ```bash
+# get working node
+srun --nodes=1 --ntasks-per-node=1 --cpus-per-task=4 --mem=128G --time=01:00:00 --pty bash -i
+
 module load qiime2
 # This makes a ./tmp/ folder in the working directory
+# Let's fix this!
+JOB_ID=$(squeue -u $(whoami) -h -o "%i")
+export TMPDIR="/local/scratch/${JOB_ID}/"
+echo $TMPDIR
 
-# rm -rf results/test/
+rm -rf results/test/
 mkdir -p results/test/
 
-testfile="unite_ver10_dynamic_19.02.2025-Q2-2024.10"
-qiime tools peek results/${testfile}.qza
+testfile="unite_ver10_dynamic_all_19.02.2025-Q2-2024.10"
+/usr/bin/time -v qiime tools peek results/${testfile}.qza
 
-qiime feature-classifier classify-sklearn \
+/usr/bin/time -v \
+  qiime feature-classifier classify-sklearn \
   --i-reads benchmarks/dada2-single-end-rep-seqs.qza \
   --p-n-jobs 4 \
   --i-classifier     results/${testfile}.qza \
