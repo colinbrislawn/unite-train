@@ -1,3 +1,6 @@
+# Nextflow
+.nextflow*
+
 # Snakemake
 results/**
 resources/**
