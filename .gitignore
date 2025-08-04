@@ -1,5 +1,6 @@
 # Nextflow
 .nextflow*
+work/
 
 # Snakemake
 results/**

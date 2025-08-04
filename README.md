@@ -24,12 +24,28 @@ If you have questions about this pipeline, please [open a new issue](https://git
 
 ---
 
+## Running Nextflow workflow
+
+Set up:
+
+- Install [qiime2-amplicon with conda](https://library.qiime2.org/quickstart/amplicon)
+- Install [Nextflow with conda]([asdf](https://www.nextflow.io/docs/latest/install.html#conda))
+
+Configure & Run:
+
+```sh
+# edit config as needed (update path to qiime2 conda env)
+open nextflow.config
+
+nextflow run main.nf -profile preinstalled_conda -resume
+```
+
 ## Running Snakemake workflow
 
 Set up:
 
 - Install [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge) and configure [Bioconda](https://bioconda.github.io/).
-- Install the version of [Qiime2](https://docs.qiime2.org/) you want using the recomended environment name.
+- Install the version of [Qiime2](https://docs.qiime2.org/) you want using the recommended environment name.
   (For a faster install, you can replace `conda` with `mamba`.)
 - Install [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) into an environment, then activate that environment.
 
