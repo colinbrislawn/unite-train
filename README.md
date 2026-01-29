@@ -37,7 +37,9 @@ Configure & Run:
 # edit config as needed (update path to qiime2 conda env)
 open nextflow.config
 
-nextflow run main.nf -profile preinstalled_conda -resume
+# Run nextflow: All save report to ./results/
+export NXF_OFFLINE=TRUE
+nextflow run main.nf -resume -offline
 ```
 
 ## Running Snakemake workflow
