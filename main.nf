@@ -65,12 +65,47 @@ workflow {
 
     ch_evaluation = EVALUATE_CLASSIFICATIONS(ch_reclassification)
     ch_evaluation.view()
+
+    // 1. Map to extract strictly: [Expected_Path, Observed_Path, Label_String]
+    // 2. Collect with flat: false to create a List of Lists: [[p1, p2, l1], [p1, p2, l2], ...]
+    ch_inputs_collected = ch_reclassification
+        .map { ver, tax, clust, sing, seq, raw, edit, classif, pred ->
+            def s_str = sing ? "_s" : ""
+            def label = "${ver}_${clust}${s_str}_${tax}"
+            // Return [Expected, Predicted, Label]
+            return [edit, pred, label]
+        }
+        .collect(flat: false) 
+
+    // 3. Transpose: Turn the "List of Triplets" into "Triplet of Lists"
+    // Result: [ [exp1, exp2...], [obs1, obs2...], [lbl1, lbl2...] ]
+    ch_final_eval_input = ch_inputs_collected.map { all_items ->
+        def expected_list = all_items.collect { it[0] }
+        def observed_list = all_items.collect { it[1] }
+        def labels_list   = all_items.collect { it[2] }
+        return [ expected_list, observed_list, labels_list ]
+    }
+
+    // 4. Run the combined process
+    ALL_EVALUATE_CLASSIFICATIONS(ch_final_eval_input)
+
 }
 
 
 // --- Processes ---
 process GET_UNITE_DATA {
     label 'qiime2'
+    publishDir "${params.outdir}/raw_data", mode: 'copy', saveAs: { filename ->
+        if (filename == "sequences.qza") {
+            def s_str = singletons ? "_s" : ""
+            return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}_sequences.qza"
+        } else if (filename == "taxonomy.qza") {
+            def s_str = singletons ? "_s" : ""
+            return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}_taxonomy.qza"
+        }
+        // don't publish other files
+        return null
+    }
 
     input:
     tuple val(version), val(taxon_group), val(cluster_id), val(singletons)
@@ -79,7 +114,7 @@ process GET_UNITE_DATA {
     tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path("sequences.qza"), path("taxonomy.qza"), emit: unite_files
 
     script:
-    def singleton_flag = singletons ? '' : '--p-no-singletons'
+    def singleton_flag = singletons ? '--p-singletons' : '--p-no-singletons'
     """
     qiime rescript get-unite-data \\
         --p-version "${version}" \\
@@ -223,3 +258,28 @@ process EVALUATE_CLASSIFICATIONS {
         --o-evaluation evaluation.qzv
     """
 }
+
+process ALL_EVALUATE_CLASSIFICATIONS {
+    label 'qiime2'
+    publishDir "${params.outdir}/evaluation", mode: 'copy'
+
+    input:
+    // We add stageAs with '*' to handle collisions automatically
+    tuple path(expected_taxonomies, stageAs: 'edit_tax_*.qza'), \
+          path(observed_taxonomies, stageAs: 'pred_tax_*.qza'), \
+          val(labels)
+
+    output:
+    path "combined_evaluation.qzv", emit: combined_eval
+
+    script:
+    def label_str = labels.join(' ')
+    """
+    qiime rescript evaluate-classifications \\
+        --i-expected-taxonomies ${expected_taxonomies} \\
+        --i-observed-taxonomies ${observed_taxonomies} \\
+        --p-labels ${label_str} \\
+        --o-evaluation combined_evaluation.qzv
+    """
+}
+
