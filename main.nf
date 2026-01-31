@@ -63,7 +63,7 @@ workflow {
     ch_reclassification = RE_CLASSIFY_SKLEARN(ch_classifiers)
     ch_reclassification.view()
 
-    ch_evaluation = EVALUATE_TAXONOMY(ch_reclassification)
+    ch_evaluation = EVALUATE_CLASSIFICATIONS(ch_reclassification)
     ch_evaluation.view()
 }
 
@@ -196,7 +196,7 @@ process RE_CLASSIFY_SKLEARN {
 //     """
 // }
 
-process EVALUATE_TAXONOMY {
+process EVALUATE_CLASSIFICATIONS {
     label 'qiime2'
     cpus 2
 
@@ -216,9 +216,10 @@ process EVALUATE_TAXONOMY {
 
     script:
     """
-    qiime rescript evaluate-taxonomy \
-        --i-taxonomies ${tax_raw} ${tax_edit} ${tax_pred} \
-        --p-labels 'Raw' 'no sh__IDs' 'reclassified' \
-        --o-taxonomy-stats evaluation.qzv
+    qiime rescript evaluate-classifications \\
+        --i-expected-taxonomies ${tax_raw} ${tax_raw} \\
+        --i-observed-taxonomies ${tax_edit} ${tax_pred} \\
+        --p-labels 'no sh__' 'reclassified' \\
+        --o-evaluation evaluation.qzv
     """
 }
