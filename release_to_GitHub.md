@@ -14,7 +14,7 @@ gh auth login
 ```
 
 
-## Search for old IDs in the files
+## Search for Old Dates in File Names
 
 Using ripgrep to search for the strings. Only these two should be found
 
@@ -26,7 +26,7 @@ rg "04.04.2024" -g '!benchmarks/'
 rg "2026.1" -g '!benchmarks/' -g '!workflow/envs'
 ```
 
-## Create a new tag and release:
+## Create a New Tag and Release
 
 ```bash
 newtag="v10.0-2025-02-19-qiime2-2026.1"
@@ -39,21 +39,19 @@ gh release create ${newtag} \
   --title "UNITE v10.0 2025-02-19 for qiime2-2026.1"
 ```
 
-## Push files to this new release:
+## Push Files to this New Release
 
 ```bash
 gh release upload ${newtag} --clobber results/dag.pdf
 gh release upload ${newtag} --clobber results/report.html
 ```
 
-## Example output files to push:
+## Example
 
-TODO: Investigate and fill this list with real files
-
-When using a wildcard like `results/*.qza`, if any of the files already exist, then the full command will fail.
+Note, when using a wildcard like `results/*.qza`, if any of the files already exist, then the full command will fail.
 
 ```bash
-gh release upload ${newtag} results/unite_*2026.1.qza
+gh release upload ${newtag} results/classifier/unite_*2026.1.qza
 
 gh release upload ${newtag} results/example.qza
 ```
@@ -63,4 +61,3 @@ gh release upload ${newtag} results/example.qza
 Open [unite-train releases](https://github.com/colinbrislawn/unite-train/releases)
 
 (Drafts won’t be seen by the public unless they are published.)
-
