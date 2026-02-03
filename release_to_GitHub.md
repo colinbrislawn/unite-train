@@ -8,47 +8,11 @@ Somewhere like [a GitHub release](https://docs.github.com/en/repositories/releas
 Software Setup:
 
 ```bash
-mamba update mamba
-mamba install gh --channel conda-forge
+conda update conda
+conda install gh --channel conda-forge
 gh auth login
 ```
 
-## But first, spot-check one classifier
-
-```bash
-# get working node
-srun --nodes=1 --ntasks-per-node=1 --cpus-per-task=4 --mem=128G --time=01:00:00 --pty bash -i
-
-module load qiime2
-# This makes a ./tmp/ folder in the working directory
-# Let's fix this!
-JOB_ID=$(squeue -u $(whoami) -h -o "%i")
-export TMPDIR="/local/scratch/${JOB_ID}/"
-echo $TMPDIR
-
-rm -rf results/test/
-mkdir -p results/test/
-
-testfile="unite_ver10_dynamic_all_19.02.2025-Q2-2024.10"
-/usr/bin/time -v qiime tools peek results/${testfile}.qza
-
-/usr/bin/time -v \
-  qiime feature-classifier classify-sklearn \
-  --i-reads benchmarks/dada2-single-end-rep-seqs.qza \
-  --p-n-jobs 4 \
-  --i-classifier     results/${testfile}.qza \
-  --o-classification results/test/${testfile}.qza
-qiime taxa barplot \
-  --i-table        benchmarks/dada2-single-end-table.qza \
-  --m-metadata-file benchmarks/mock-25-sample-metadata.tsv \
-  --i-taxonomy      results/test/${testfile}.qza \
-  --o-visualization results/test/${testfile}.qzv
-rm -f results/test/${testfile}.qza # Keep viz only
-
-# Cleanup
-# rm -rf results/test/
-rm -rf tmp/
-```
 
 ## Search for old IDs in the files
 
@@ -59,20 +23,20 @@ Using ripgrep to search for the strings. Only these two should be found
 rg "04.04.2024" -g '!benchmarks/'
 
 # old qiime2 date. Should only find this line
-rg "2024.5" -g '!benchmarks/' -g '!workflow/envs'
+rg "2026.1" -g '!benchmarks/' -g '!workflow/envs'
 ```
 
 ## Create a new tag and release:
 
 ```bash
-newtag="v10.0-2025-02-19-qiime2-2024.10"
+newtag="v10.0-2025-02-19-qiime2-2026.1"
 
 gh release create ${newtag} \
   --draft \
   --latest \
   -F release_notes_newest.md \
   --prerelease  \
-  --title "UNITE v10.0 2025-02-19 for qiime2-2024.10"
+  --title "UNITE v10.0 2025-02-19 for qiime2-2026.1"
 ```
 
 ## Push files to this new release:
@@ -89,7 +53,7 @@ TODO: Investigate and fill this list with real files
 When using a wildcard like `results/*.qza`, if any of the files already exist, then the full command will fail.
 
 ```bash
-gh release upload ${newtag} results/unite_*2024.10.qza
+gh release upload ${newtag} results/unite_*2026.1.qza
 
 gh release upload ${newtag} results/example.qza
 ```
