@@ -1,14 +1,14 @@
 ---
 title: "GitHub Release Stats"
 author: "Colin J. Brislawn"
-date: "March 19, 2025"
+date: "Feb 3, 2026"
 output: html_document
 ---
 
 ```{r setup0, include=FALSE}
 library("tidyverse")
 library("rvest")
-library("viridis")
+library("viridisLite")
 
 # library("kableExtra")
 # library("vroom")
@@ -27,14 +27,14 @@ library(styler)
 # styler:::style_active_file()
 style_file("Release-stats.Rmd", strict = TRUE)
 
-library(lintr)
-lintr::lint("Release-stats.Rmd",
-  linters = linters_with_defaults(
-    line_length_linter = line_length_linter(120),
-    object_name_linter = NULL,
-    commented_code_linter = NULL
-  )
-)
+# library(lintr)
+# lintr::lint("Release-stats.Rmd",
+#   linters = linters_with_defaults(
+#     line_length_linter = line_length_linter(120),
+#     object_name_linter = NULL,
+#     commented_code_linter = NULL
+#   )
+# )
 ```
 
 ```{r}
@@ -42,10 +42,8 @@ lintr::lint("Release-stats.Rmd",
 # So we use a third party tool
 # https://github.com/kefir500/github-release-stats
 
-# Install
-# volta install github-release-stats
-# Or https://stackoverflow.com/a/39981888
-# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+# Install like https://stackoverflow.com/a/39981888
+# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 # nvm install node
 # npm i -g github-release-stats
 # Run
@@ -88,8 +86,8 @@ release_data <- tibble(release_text) %>%
 ```{r, fig.height=4}
 release_data2 <- release_data |>
   mutate(Tag = Tag |>
-           str_remove("-demo") |>
-           str_remove("Tag: ")) |>
+    str_remove("-demo") |>
+    str_remove("Tag: ")) |>
   extract(Tag, c("UNITE", "QIIME2_Version"), regex = "(.*)-qiime2-(20.*)") |>
   separate(UNITE, c("unite_version", "unite_date"), sep = "-") |>
   separate(QIIME2_Version, c("q2year", "q2month"), remove = FALSE) |>
@@ -108,7 +106,7 @@ release_data2 <- release_data |>
 release_data2 |>
   ggplot(aes(q2month, downloads, fill = unite_version)) +
   geom_bar(stat = "identity", position = "stack") +
-  scale_fill_viridis(discrete = TRUE, begin = 0.2, end = 0.6) +
+  scale_fill_viridis_d(begin = 0.2, end = 0.6) +
   facet_grid(~q2year, scales = "free", space = "free") +
   labs(title = "Downloads over time")
 ggsave("downloads_time.png", height = 4)
