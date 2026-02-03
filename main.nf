@@ -7,8 +7,7 @@ params.version = "2025-02-19"
 params.taxon_group = ["fungi"]
 // "fungi", "eukaryotes"
 params.cluster_id = ["99", "97", "dynamic"]
-params.singletons = [true, false]
-params.derep_mode = ["super", "uniq"]
+params.singletons = [false]
 params.outdir = "./results"
 
 // --- Workflow ---
@@ -30,35 +29,34 @@ workflow {
     ch_taxon_group = channel.fromList(params.taxon_group)
     ch_cluster_id = channel.fromList(params.cluster_id)
     ch_singletons = channel.fromList(params.singletons)
-    ch_derep_mode = channel.fromList(params.derep_mode)
 
     // Combine the channels to get all combinations
     ch_unite_params = ch_version
         .combine(ch_taxon_group)
         .combine(ch_cluster_id)
         .combine(ch_singletons)
-        .combine(ch_derep_mode)
 
     // Note: As we move through the pipeline, we keep adding more elements to
     // the Main Tupple, to collate inputs and outputs.
     ch_unite_params.view()
     /*
     Prints:
-        [2025-02-19, fungi, 99, true, super]
-        [2025-02-19, fungi, 99, true, uniq]
-        [2025-02-19, fungi, 99, false, super]
-        [2025-02-19, fungi, 99, false, uniq]
-        [2025-02-19, fungi, 97, true, super]
-        [2025-02-19, fungi, 97, true, uniq]
-        [2025-02-19, fungi, 97, false, super]
-        [2025-02-19, fungi, 97, false, uniq]
+        [2025-02-19, fungi, 99, true]
+        [2025-02-19, fungi, 99, false]
+        [2025-02-19, fungi, 97, true]
+        [2025-02-19, fungi, 97, false]
+        [2025-02-19, fungi, dynamic, true]
+        [2025-02-19, fungi, dynamic, false]
     */
 
     // Note: Because we only have one Main Tupple, each step is easy!
     ch_unite_raw = GET_UNITE_DATA(ch_unite_params)
     ch_tax_edited = EDIT_TAXONOMY(ch_unite_raw)
-    ch_tax_derep = DEREPLICATE(ch_tax_edited)
-    ch_classifiers = FIT_CLASSIFIER_NB(ch_tax_derep)
+    // Either use dereplication...
+    // ch_tax_derep = DEREPLICATE(ch_tax_edited)
+    // ch_classifiers = FIT_CLASSIFIER_NB(ch_tax_derep)
+    // ...or go directly to fitting:
+    ch_classifiers = FIT_CLASSIFIER_NB(ch_tax_edited)
     // ch_classifiers.view()
 
     // Run the original sequences through the new classifiers
@@ -72,9 +70,9 @@ workflow {
     // 1. Map to extract strictly: [Expected_Path, Observed_Path, Label_String]
     // 2. Collect with flat: false to create a List of Lists: [[p1, p2, l1], [p1, p2, l2], ...]
     ch_inputs_collected = ch_reclassification
-        .map { ver, tax, clust, sing, mode, _seq, _raw, edit, _classif, pred ->
+        .map { ver, tax, clust, sing, _seq, _raw, edit, _classif, pred ->
             def s_str = sing ? "_s" : ""
-            def label = "${ver}_${clust}${s_str}_${tax}_${mode}"
+            def label = "${ver}_${clust}${s_str}_${tax}"
             // Return [Expected, Predicted, Label]
             return [edit, pred, label]
         }
@@ -112,10 +110,10 @@ process GET_UNITE_DATA {
     // }
 
     input:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode)
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons)
 
     output:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path("sequences.qza"), path("taxonomy.qza"), emit: unite_files
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path("sequences.qza"), path("taxonomy.qza"), emit: unite_files
 
     script:
     def singleton_flag = singletons ? '--p-singletons' : '--p-no-singletons'
@@ -135,10 +133,10 @@ process EDIT_TAXONOMY {
     label 'qiime2'
 
     input:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path(sequences), path(taxonomy)
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(taxonomy)
 
     output:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path(sequences), path(taxonomy), path("taxonomy-no-SH.qza"), emit: edit_taxonomy
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(taxonomy), path("taxonomy-no-SH.qza"), emit: edit_taxonomy
 
     script:
     """
@@ -156,19 +154,19 @@ process DEREPLICATE {
     cpus 2
 
     input:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path(sequences), path(raw_taxonomy), path(edited_taxonomy)
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(raw_taxonomy), path(edited_taxonomy)
 
     output:
     // Output structure mimics input so it flows into FIT_CLASSIFIER_NB:
     // sequences and edited_taxonomy are both from this drep step!
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path("derep-sequences.qza"), path(raw_taxonomy), path("derep-taxonomy.qza"), emit: dereplicated
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path("derep-sequences.qza"), path(raw_taxonomy), path("derep-taxonomy.qza"), emit: dereplicated
 
     script:
     """
     qiime rescript dereplicate \
         --i-sequences ${sequences} \
         --i-taxa ${edited_taxonomy} \
-        --p-mode ${derep_mode} \
+        --p-mode uniq \
         --p-threads ${task.cpus} \
         --o-dereplicated-sequences derep-sequences.qza \
         --o-dereplicated-taxa derep-taxonomy.qza
@@ -181,7 +179,7 @@ process FIT_CLASSIFIER_NB {
         if (filename == "classifier.qza") {
             // Previous name: unite_ver10_99_s_all_19.02.2025-Q2-2024.10.qza
             def s_str = singletons ? "_s" : ""
-            return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}_${derep_mode}-Q2-2026.1.qza"
+            return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}-Q2-2026.1.qza"
         }
         // don't publish other files
         return null
@@ -189,10 +187,10 @@ process FIT_CLASSIFIER_NB {
     cpus 8
 
     input:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path(sequences), path(taxonomy), path(taxonomy_edit)
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(taxonomy), path(taxonomy_edit)
 
     output:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path(sequences), path(taxonomy), path(taxonomy_edit), path("classifier.qza"), emit: classifier
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(taxonomy), path(taxonomy_edit), path("classifier.qza"), emit: classifier
 
     script:
     """
@@ -206,20 +204,20 @@ process FIT_CLASSIFIER_NB {
 
 process RE_CLASSIFY_SKLEARN {
     label 'qiime2'
-    cpus 8
+    cpus 4
     publishDir "${params.outdir}/evaluation", mode: 'copy', saveAs: { filename ->
         if (filename == "reclassification.qza") {
             def s_str = singletons ? "_s" : ""
-            return "reclass_ver${version}_${cluster_id}${s_str}_${taxon_group}_${derep_mode}.qza"
+            return "reclass_ver${version}_${cluster_id}${s_str}_${taxon_group}.qza"
         }
         return null
     }
 
     input:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path(sequences), path(taxonomy), path(taxonomy_edit), path(classifier)
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(taxonomy), path(taxonomy_edit), path(classifier)
 
     output:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path(sequences), path(taxonomy), path(taxonomy_edit), path(classifier), path("reclassification.qza"), emit: reclassification
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(taxonomy), path(taxonomy_edit), path(classifier), path("reclassification.qza"), emit: reclassification
 
     script:
     """
@@ -246,10 +244,10 @@ process EVALUATE_CLASSIFICATIONS {
     }
 
     input:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path(sequences), path(tax_raw), path(tax_edit), path(classifier), path(tax_pred)
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(tax_raw), path(tax_edit), path(classifier), path(tax_pred)
 
     output:
-    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), val(derep_mode), path("evaluation.qzv"), emit: evaluation
+    tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path("evaluation.qzv"), emit: evaluation
 
     script:
     """
@@ -274,7 +272,7 @@ process ALL_EVALUATE_CLASSIFICATIONS {
     // We stageAs with '*' to handle collisions
     tuple path(expected_taxonomies, stageAs: 'edit_tax_*.qza'), \
           path(observed_taxonomies, stageAs: 'pred_tax_*.qza'), \
-          val(labels), val(derep_mode)
+          val(labels)
 
     output:
     path "evaluation.qzv"
