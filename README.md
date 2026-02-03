@@ -24,12 +24,12 @@ If you have questions about this pipeline, please [open a new issue](https://git
 
 ---
 
-## Running Nextflow workflow
+## Running Nextflow Workflow
 
 Set up:
 
 - Install [qiime2-amplicon with conda](https://library.qiime2.org/quickstart/amplicon)
-- Install [Nextflow with conda]([asdf](https://www.nextflow.io/docs/latest/install.html#conda))
+- Install [Nextflow with conda](https://www.nextflow.io/docs/latest/install.html#conda)
 
 Configure & Run:
 
@@ -39,68 +39,7 @@ open nextflow.config
 
 # Run nextflow: All save report to ./results/
 export NXF_OFFLINE=TRUE
-nextflow run main.nf -resume -offline
-```
-
-## Running Snakemake workflow
-
-Set up:
-
-- Install [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge) and configure [Bioconda](https://bioconda.github.io/).
-- Install the version of [Qiime2](https://docs.qiime2.org/) you want using the recommended environment name.
-  (For a faster install, you can replace `conda` with `mamba`.)
-- Install [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) into an environment, then activate that environment.
-
-Configure:
-
-- Open up `config/config.yaml` and configure it to your liking.
-  (For example, you may need to update the name of your Qiime2 environment.)
-
-Run:
-
-```bash
-snakemake --cores 8 --sdm conda --resources mem_mb=10000
-```
-
-Training one classifier takes 1-9 hours on an [AMD EPYC 75F3 Milan](https://www.amd.com/en/products/cpu/amd-epyc-75f3), depending on the size and complexity of the data.
-
-<details>
-  <summary>Run on a slurm cluster:</summary>
-
-More specifically, The University of Florida HiPerGator supercomputer,
-with access generously provided by the [Kawahara Lab](https://www.floridamuseum.ufl.edu/kawahara-lab/)!
-
-```bash
-screen    # We connect to a random login node, so we may not be able...
-screen -r # to reconnect with this later on.
-
-snakemake --jobs 24 --slurm \
-  --rerun-incomplete --retries 3 \
-  --sdm envmodules --latency-wait 10 \
-  --default-resources slurm_account=kawahara-b slurm_partition=hpg-milan
-```
-
-</details>
-
-<details>
-  <summary>Run with Docker:</summary>
-
-Say, in 'the cloud' using [FlowDeploy](https://flowdeploy.com/).
-
-```bash
-snakemake --jobs 12 \
-  --rerun-incomplete --retries 3 \
-  --sdm singularity \
-  --default-resources
-```
-
-</details>
-
-Reports:
-
-```bash
-snakemake --report results/report.html
-snakemake --forceall --dag | dot -Tpdf > results/dag.pdf
+nextflow run main.nf -resume
 ```
 
 ## Downloads
