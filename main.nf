@@ -1,15 +1,6 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
 
-// --- Parameters ---
-params.version = "2025-02-19"
-// Major Unite version / data is not iterable by design, as I only run on new releases
-params.taxon_group = ["fungi"]
-// "fungi", "eukaryotes"
-params.cluster_id = ["99", "97", "dynamic"]
-params.singletons = [false]
-params.outdir = "./results"
-
 // --- Workflow ---
 workflow {
     log.info(
