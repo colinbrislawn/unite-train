@@ -179,7 +179,10 @@ process FIT_CLASSIFIER_NB {
         if (filename == "classifier.qza") {
             // Previous name: unite_ver10_99_s_all_19.02.2025-Q2-2024.10.qza
             def s_str = singletons ? "_s" : ""
-            return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}-Q2-2026.1.qza"
+            // Pull qiime2 version from process:withLabel:Qiime2:conda from config
+            def q_ver = this.process.conda.split('-').last()
+            println "Detected QIIME2 version: ${q_ver}"
+            return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}-Q2-${q_ver}.qza"
         }
         // don't publish other files
         return null
