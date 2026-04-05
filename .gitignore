@@ -4,7 +4,6 @@ work/
 
 # Snakemake
 results/**
-resources/**
 .snakemake
 .snakemake/**
 logs/**
