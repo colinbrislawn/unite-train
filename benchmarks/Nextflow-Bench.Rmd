@@ -1,0 +1,121 @@
+---
+title: "Nextflow Bench"
+author: "Colin J. Brislawn"
+date: "April 5, 2026"
+output: html_document
+---
+
+```{r setup0, include=FALSE}
+library("tidyverse")
+library("ggpubr")
+library("plotly")
+# library("vegan")
+library("kableExtra")
+library("vroom")
+library("fs")
+
+knitr::opts_chunk$set(echo = TRUE, cache = F)
+
+theme_set(theme_bw())
+theme_update(
+  strip.background = element_blank(),
+  axis.text.x = element_text(angle = 0, hjust = 0.5)
+)
+```
+
+```{r lint, include=F, eval=F}
+library(styler)
+styler:::style_active_file()
+
+library(lintr)
+lintr::lint("Snakemake-Bench.Rmd",
+  linters = with_defaults(
+    line_length_linter = line_length_linter(120),
+    object_name_linter = NULL,
+    commented_code_linter = NULL
+  )
+)
+```
+
+
+## Goal 1: can we predict max memory needed based on input file size?
+
+```{r}
+# get intput file size
+seqs_raw <- dir_info(path = "../results/raw_data/", glob = "*qza") |>
+  as_tibble() |>
+  select(path, size) |>
+  mutate(path = str_remove(path, "../results/raw_data/unite_ver2025-02-19_")) |>
+  mutate(path = str_remove(path, "_sequences.qza"))
+
+# get a trace!
+trace_raw <- read_tsv("../results/trace_2026-04-05_11-22.tsv")
+```
+
+### For FIT_CLASSIFIER step, let's calculate the cofficient of memory vs. input file size.
+
+```{r}
+# This does not have file names, so we can't do a normal join.
+# Instead, let's just zip these together in order
+trace_merge <- tibble(
+  trace_raw |>
+    filter(str_detect(name, "FIT_CLASSIFIER")) |>
+    mutate(peak_rss = as_fs_bytes(peak_rss)) |>
+    arrange(peak_rss) |>
+    select(duration, peak_rss),
+  seqs_raw |>
+    arrange(size)
+)
+
+# trace_merge |>
+#   ggscatter("size", "peak_rss", add = "reg.line", title = "input file size vs. peak memory usage, log-log scale") +
+#   yscale("log10", .format = TRUE) +
+#   xscale("log10", .format = TRUE) +
+#   stat_regline_equation(label.x.npc = 0.6, label.y.npc = 0.2) +
+#   stat_cor(label.x.npc = 0.6, label.y.npc = 0.1)
+
+trace_merge |>
+  ggscatter("size", "peak_rss", add = "reg.line", title = "input file size vs. peak memory usage, linear") +
+  stat_regline_equation(label.x.npc = 0.6, label.y.npc = 0.2) +
+  stat_cor(label.x.npc = 0.6, label.y.npc = 0.1)
+
+```
+
+### For RE_CLASSIFY_SKLEARN step, let's calculate the cofficient of memory vs. input file size.
+
+```{r}
+# This does not have file names, so we can't do a normal join.
+# Instead, let's just zip these together in order
+trace_merge <- tibble(
+  trace_raw |>
+    filter(str_detect(name, "RE_CLASSIFY_SKLEARN")) |>
+    mutate(peak_rss = as_fs_bytes(peak_rss)) |>
+    arrange(peak_rss) |>
+    select(duration, peak_rss),
+  seqs_raw |>
+    arrange(size)
+)
+
+# trace_merge |>
+#   ggscatter("size", "peak_rss", add = "reg.line", title = "input file size vs. peak memory usage, log-log scale") +
+#   yscale("log10", .format = TRUE) +
+#   xscale("log10", .format = TRUE) +
+#   stat_regline_equation(label.x.npc = 0.6, label.y.npc = 0.2) +
+#   stat_cor(label.x.npc = 0.6, label.y.npc = 0.1)
+
+trace_merge |>
+  ggscatter("size", "peak_rss", add = "reg.line", title = "input file size vs. peak memory usage, linear") +
+  stat_regline_equation(label.x.npc = 0.6, label.y.npc = 0.2) +
+  stat_cor(label.x.npc = 0.6, label.y.npc = 0.1)
+
+```
+
+
+```{r, include=F, eval=T}
+# Save and quit early! Don't render the rest of the document.
+knitr::knit_exit()
+```
+
+```{r, include=F, eval=F}
+rmarkdown::render("Nextflow-Bench.Rmd")
+```
