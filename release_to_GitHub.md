@@ -19,24 +19,26 @@ gh auth login
 Using ripgrep to search for the strings. Only these two should be found
 
 ```bash
-# old unite date. Should only find this line
-rg "04.04.2024" -g '!benchmarks/'
+# old unite date. Should only find this line below.
+# This data is current, so I'll turn off for now.
+# rg "2025.02.19" -g '!benchmarks/'
 
-# old qiime2 date. Should only find this line
-rg "2026.1" -g '!benchmarks/' -g '!workflow/envs'
+# old qiime2 date. Should only find this line below.
+rg "2026.4" -g '!benchmarks/' -g '!workflow/envs'
+# Run this line to find matches.
+# Fix all of them, then rerun to confirm. Finally, update this line last!
 ```
 
 ## Create a New Tag and Release
 
 ```bash
-newtag="v10.0-2025-02-19-qiime2-2026.1"
+newtag="v10.0-2025-02-19-qiime2-2026.4"
 
 gh release create ${newtag} \
   --draft \
   --latest \
   -F release_notes_newest.md \
-  --prerelease  \
-  --title "UNITE v10.0 2025-02-19 for qiime2-2026.1"
+  --title "UNITE v10.0 2025-02-19 for qiime2-2026.4"
 ```
 
 ## Push Files to this New Release
@@ -51,9 +53,9 @@ gh release upload ${newtag} --clobber results/report.html
 Note, when using a wildcard like `results/*.qza`, if any of the files already exist, then the full command will fail.
 
 ```bash
-gh release upload ${newtag} results/classifier/unite_*2026.1.qza
+gh release upload ${newtag} results/classifier/unite_*2026.4.qza
 
-gh release upload ${newtag} results/example.qza
+gh release upload ${newtag} results/eval_unite_ver2025-02-19.qzv
 ```
 
 ## Review draft on GitHub and publish it!
