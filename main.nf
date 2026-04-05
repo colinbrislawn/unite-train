@@ -88,13 +88,15 @@ workflow {
 process GET_UNITE_DATA {
     label 'qiime2'
     cpus 2
+
     // publishDir "${params.outdir}/raw_data", mode: 'copy', saveAs: { filename ->
     //     if (filename == "sequences.qza") {
     //         def s_str = singletons ? "_s" : ""
     //         return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}_sequences.qza"
     //     } else if (filename == "taxonomy.qza") {
-    //         def s_str = singletons ? "_s" : ""
-    //         return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}_taxonomy.qza"
+    //         return null
+    //         // def s_str = singletons ? "_s" : ""
+    //         // return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}_taxonomy.qza"
     //     }
     //     // don't publish other files
     //     return null
@@ -122,6 +124,7 @@ process GET_UNITE_DATA {
 
 process EDIT_TAXONOMY {
     label 'qiime2'
+    cpus 2
 
     input:
     tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(taxonomy)
@@ -166,18 +169,20 @@ process DEREPLICATE {
 
 process FIT_CLASSIFIER_NB {
     label 'qiime2'
+    cpus 2
+    memory { 1200 * sequences.size() }
+    tag "mem: ${task.memory} for seqs: ${sequences.size().toMB()}"
+
     publishDir "${params.outdir}/classifier", mode: 'copy', saveAs: { filename ->
         if (filename == "classifier.qza") {
             // Previous name: unite_ver10_99_s_all_19.02.2025-Q2-2024.10.qza
             def s_str = singletons ? "_s" : ""
             def q_ver = task.ext.qiime2_version
-            println "Detected QIIME2 version: ${q_ver}"
             return "unite_ver${version}_${cluster_id}${s_str}_${taxon_group}-Q2-${q_ver}.qza"
         }
         // don't publish other files
         return null
     }
-    cpus 8
 
     input:
     tuple val(version), val(taxon_group), val(cluster_id), val(singletons), path(sequences), path(taxonomy), path(taxonomy_edit)
@@ -197,7 +202,10 @@ process FIT_CLASSIFIER_NB {
 
 process RE_CLASSIFY_SKLEARN {
     label 'qiime2'
-    cpus 4
+    cpus 2
+    memory { 700 * classifier.size() }
+    tag "mem: ${task.memory} for seqs: ${classifier.size().toMB()}"
+
     publishDir "${params.outdir}/evaluation", mode: 'copy', saveAs: { filename ->
         if (filename == "reclassification.qza") {
             def s_str = singletons ? "_s" : ""
@@ -254,6 +262,8 @@ process EVALUATE_CLASSIFICATIONS {
 
 process ALL_EVALUATE_CLASSIFICATIONS {
     label 'qiime2'
+    cpus 2
+
     publishDir "${params.outdir}", mode: 'copy', saveAs: { filename ->
         if (filename == "evaluation.qzv") {
             return "eval_unite_ver${params.version}.qzv"
