@@ -27,3 +27,12 @@ tmp/
 # pixi environments
 .pixi/*
 !.pixi/config.toml
+
+# macOS
+.DS_Store
+.localized
+__MACOSX/
+.AppleDouble
+.LSOverride
+Icon[]
+._*
