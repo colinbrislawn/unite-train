@@ -44,23 +44,20 @@ Here's the cool part; we can install the locked version of Qiime I commited to t
 pixi install
 ```
 
-Use Pixi to install the newest version of Qiime2. Use [this yaml file](https://library.qiime2.org/quickstart/qiime2#id-3-install-the-base-distributions-conda-environment).
-
 ```sh
-# Reset pixi
-rm pixi.toml pixi.lock
+# How to reset pixi, say when updating to a new version of Qiime2
+rm pixi.toml pixi.lock rachis-qiime2-osx-64-conda.yml
 rm -rf .pixi/
 
 # Get new qiime distribution
-wget https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2026.4/qiime2/released/rachis-qiime2-osx-64-conda.yml
-# New pixi
+wget https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2026.7/qiime2/released/rachis-qiime2-osx-64-conda.yml
+# Import from the conda env
 pixi init --platform osx-64 --import rachis-qiime2-osx-64-conda.yml
-
-# Test (and also refresh the cache)
+# Install
 pixi run qiime info
 
 # Add it directly to the repo?
-git add pixi*
+git add pixi* rachis-qiime2-osx-64-conda.yml
 ```
 
 ## Configure & Run:
