@@ -170,8 +170,8 @@ process DEREPLICATE {
 process FIT_CLASSIFIER_NB {
     label 'qiime2'
     cpus 2
-    memory { 1200 * sequences.size() }
-    tag "mem: ${task.memory} for seqs: ${sequences.size().toMB()}"
+    memory { 900 * sequences.size() }
+    tag "mem: ${task.memory} for seqs: ${sequences.size()}"
 
     publishDir "${params.outdir}/classifier", mode: 'copy', saveAs: { filename ->
         if (filename == "classifier.qza") {
@@ -203,8 +203,8 @@ process FIT_CLASSIFIER_NB {
 process RE_CLASSIFY_SKLEARN {
     label 'qiime2'
     cpus 2
-    memory { 700 * classifier.size() }
-    tag "mem: ${task.memory} for seqs: ${classifier.size().toMB()}"
+    memory { 100 * classifier.size() }
+    tag "mem: ${task.memory} for classifier: ${classifier.size()}"
 
     publishDir "${params.outdir}/evaluation", mode: 'copy', saveAs: { filename ->
         if (filename == "reclassification.qza") {
