@@ -28,16 +28,45 @@ If you have questions about this pipeline, please [open a new issue](https://git
 
 Set up:
 
-- Install [qiime2-amplicon with conda](https://library.qiime2.org/quickstart/amplicon)
-- Install [Nextflow with conda](https://www.nextflow.io/docs/latest/install.html#conda)
+⚠️ Pixi is still new to me! I am testing this out!
 
-Configure & Run:
+- Install [Pixi](https://pixi.prefix.dev/latest/installation/)
+
+Install Nextflow into the global env
 
 ```sh
-# edit config as needed (update path to qiime2 conda env)
-open nextflow.config
+pixi global install  -c conda-forge -c bioconda nextflow openjdk=17
+```
 
-# Run nextflow: All save report to ./results/
+Here's the cool part; we can install the locked version of Qiime I commited to the repo! It's in the code!
+
+```sh
+pixi install
+```
+
+Use Pixi to install the newest version of Qiime2. Use [this yaml file](https://library.qiime2.org/quickstart/qiime2#id-3-install-the-base-distributions-conda-environment).
+
+```sh
+# Reset pixi
+rm pixi.toml pixi.lock
+rm -rf .pixi/
+
+# Get new qiime distribution
+wget https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2026.4/qiime2/released/rachis-qiime2-osx-64-conda.yml
+# New pixi
+pixi init --platform osx-64 --import rachis-qiime2-osx-64-conda.yml
+
+# Test (and also refresh the cache)
+pixi run qiime info
+
+# Add it directly to the repo?
+git add pixi*
+```
+
+## Configure & Run:
+
+```sh
+# Reports, timeline and trace save to ./results/
 export NXF_OFFLINE=TRUE
 nextflow run main.nf -resume
 ```
