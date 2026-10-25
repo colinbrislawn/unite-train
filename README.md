@@ -49,7 +49,7 @@ container image pull --platform linux/amd64 quay.io/qiime2/qiime2-workshop:2026.
 container run --rm --rosetta --platform linux/amd64 quay.io/qiime2/qiime2-workshop:2026.10 qiime info
 ```
 
-To update Qiime2, change `qiime2_version` in `nextflow.config`.
+To update Qiime2, change `qiime2_version` in `nextflow.config`, and update pixi to match (below): fits too big for a VM (the large eukaryote ones) run natively with pixi.
 
 ### Pixi (alternative)
 
@@ -65,7 +65,7 @@ rm pixi.toml pixi.lock rachis-qiime2-osx-64-conda.yml
 rm -rf .pixi/
 
 # Get new qiime distribution
-wget https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2026.7/qiime2/released/rachis-qiime2-osx-64-conda.yml
+wget https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2026.10/qiime2/released/rachis-qiime2-osx-64-conda.yml
 # Import from the conda env
 pixi init --platform osx-64 --import rachis-qiime2-osx-64-conda.yml
 # Install
