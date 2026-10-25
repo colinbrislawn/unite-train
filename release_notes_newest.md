@@ -1,4 +1,4 @@
-This is a classifier for [Unite v10.0](https://unite.ut.ee/repository.php) Version 19.02.2025 trained for use with **qiime2-amplicon-2026.10** -- [install](https://library.qiime2.org/quickstart/amplicon) [docs](https://amplicon-docs.qiime2.org/en/latest/).
+This is a classifier for [Unite v10.0](https://unite.ut.ee/repository.php) Version 19.02.2025 trained for use with **qiime2-2026.10** -- [install](https://library.qiime2.org/quickstart/amplicon) [docs](https://amplicon-docs.qiime2.org/en/latest/).
 
 These can be used with [`qiime feature-classifier classify-sklearn`](https://amplicon-docs.qiime2.org/en/stable/references/plugins/feature-classifier.html#q2-action-feature-classifier-classify-sklearn) like the ones on the [Taxonomic classifiers page](https://library.qiime2.org/data-resources/).
 
