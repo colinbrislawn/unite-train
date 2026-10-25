@@ -171,8 +171,8 @@ process FIT_CLASSIFIER_NB {
     label 'qiime2'
     cpus 2
     // Container VMs enforce memory (pixi did not), so 900 got OOM killed.
-    // One at a time while we measure the real peak_rss.
-    memory { 1600 * sequences.size() }
+    // Fungi peak_rss was 888-985x seqs size. Capped to fit a 24 GB Mac.
+    memory { Math.min(1100 * sequences.size(), 23.GB.toBytes()) }
     maxForks 1
     tag "mem: ${task.memory} for seqs: ${sequences.size()}"
 
@@ -206,7 +206,8 @@ process FIT_CLASSIFIER_NB {
 process RE_CLASSIFY_SKLEARN {
     label 'qiime2'
     cpus 2
-    memory { 100 * classifier.size() }
+    // Fungi peak_rss was 69-72x classifier size
+    memory { 85 * classifier.size() }
     tag "mem: ${task.memory} for classifier: ${classifier.size()}"
 
     publishDir "${params.outdir}/evaluation", mode: 'copy', saveAs: { filename ->
