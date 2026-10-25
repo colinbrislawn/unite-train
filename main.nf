@@ -170,7 +170,10 @@ process DEREPLICATE {
 process FIT_CLASSIFIER_NB {
     label 'qiime2'
     cpus 2
-    memory { 900 * sequences.size() }
+    // Container VMs enforce memory (pixi did not), so 900 got OOM killed.
+    // One at a time while we measure the real peak_rss.
+    memory { 1600 * sequences.size() }
+    maxForks 1
     tag "mem: ${task.memory} for seqs: ${sequences.size()}"
 
     publishDir "${params.outdir}/classifier", mode: 'copy', saveAs: { filename ->
