@@ -18,6 +18,7 @@ Changes:
   - Run Qiime2 from the official Docker image using Apple container, which reports memory use on macOS ([#20](https://github.com/colinbrislawn/unite-train/issues/20))
   - The largest eukaryote classifiers still train with Pixi, as they need more memory than a container gets on a 24 GB Mac
   - This still uses `scikit-learn=1.7.1` like the last version
+  - Released with Robots 🤖 : Claude Code and Opus 5.5 Medium used
 
 ---
 
