@@ -1,4 +1,4 @@
-This is a classifier for [Unite v10.0](https://unite.ut.ee/repository.php) Version 19.02.2025 trained for use with **qiime2-amplicon-2026.7** -- [install](https://library.qiime2.org/quickstart/amplicon) [docs](https://amplicon-docs.qiime2.org/en/latest/).
+This is a classifier for [Unite v10.0](https://unite.ut.ee/repository.php) Version 19.02.2025 trained for use with **qiime2-amplicon-2026.10** -- [install](https://library.qiime2.org/quickstart/amplicon) [docs](https://amplicon-docs.qiime2.org/en/latest/).
 
 These can be used with [`qiime feature-classifier classify-sklearn`](https://amplicon-docs.qiime2.org/en/stable/references/plugins/feature-classifier.html#q2-action-feature-classifier-classify-sklearn) like the ones on the [Taxonomic classifiers page](https://library.qiime2.org/data-resources/).
 
@@ -14,10 +14,10 @@ Please review the database evaluation inside `eval_unite_*.qzv` file and the sof
 
 Changes:
 
-  - Update to `qiime2-amplicon-2026.7`
-  - Use Pixi to install Qiime2 on OSX
-  - This still uses to `scikit-learn=1.7.1` like the last version
-  - include F-score results in `eval_unite_ver2025-02-19.qzv`
+  - Update to `qiime2-amplicon-2026.10`
+  - Run Qiime2 from the official Docker image using Apple container, which reports memory use on macOS ([#20](https://github.com/colinbrislawn/unite-train/issues/20))
+  - The largest eukaryote classifiers still train with Pixi, as they need more memory than a container gets on a 24 GB Mac
+  - This still uses `scikit-learn=1.7.1` like the last version
 
 ---
 
