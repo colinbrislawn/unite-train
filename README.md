@@ -28,17 +28,32 @@ If you have questions about this pipeline, please [open a new issue](https://git
 
 Set up:
 
-⚠️ Pixi is still new to me! I am testing this out!
-
 - Install [Pixi](https://pixi.prefix.dev/latest/installation/)
 
-Install Nextflow into the global env
+Install Nextflow (26.04 or newer) into the global env
 
 ```sh
 pixi global install  -c conda-forge -c bioconda nextflow openjdk=17
 ```
 
-Here's the cool part; we can install the locked version of Qiime I commited to the repo! It's in the code!
+### Apple container (default)
+
+Qiime2 runs from the official [qiime2-workshop:2026.10](https://quay.io/qiime2/qiime2-workshop:2026.10) image using [Apple container](https://docs.seqera.io/nextflow/container/apple-container), so we get memory stats on macOS ([#20](https://github.com/colinbrislawn/unite-train/issues/20)). Needs Apple silicon.
+
+- Install [Apple container](https://github.com/apple/container/releases)
+
+```sh
+container system start
+# Optional: pull the image ahead of time (~8 GB)
+container image pull --platform linux/amd64 quay.io/qiime2/qiime2-workshop:2026.10
+container run --rm --rosetta --platform linux/amd64 quay.io/qiime2/qiime2-workshop:2026.10 qiime info
+```
+
+To update Qiime2, change `qiime2_version` in `nextflow.config`, and update pixi to match (below): fits too big for a VM (the large eukaryote ones) run natively with pixi.
+
+### Pixi (alternative)
+
+Run with `-profile pixi` to use the locked version of Qiime I commited to the repo instead.
 
 ```sh
 pixi install
@@ -50,7 +65,7 @@ rm pixi.toml pixi.lock rachis-qiime2-osx-64-conda.yml
 rm -rf .pixi/
 
 # Get new qiime distribution
-wget https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2026.7/qiime2/released/rachis-qiime2-osx-64-conda.yml
+wget https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/2026.10/qiime2/released/rachis-qiime2-osx-64-conda.yml
 # Import from the conda env
 pixi init --platform osx-64 --import rachis-qiime2-osx-64-conda.yml
 # Install
@@ -66,6 +81,8 @@ git add pixi* rachis-qiime2-osx-64-conda.yml
 # Reports, timeline and trace save to ./results/
 export NXF_OFFLINE=TRUE
 nextflow run main.nf -resume
+# or, with pixi
+nextflow run main.nf -resume -profile pixi
 ```
 
 ## Downloads

@@ -20,7 +20,7 @@ Using ripgrep to search for the strings. Only these two should be found
 
 ```bash
 # old unite date. Should only find this line below.
-rg "2026.4" -g '!benchmarks/' -g '!workflow/envs'
+rg "2026.7" -g '!benchmarks/' -g '!workflow/envs'
 # Run this line to find matches.
 # Fix all of them, then rerun to confirm. Finally, update this line last!
 ```
@@ -28,13 +28,13 @@ rg "2026.4" -g '!benchmarks/' -g '!workflow/envs'
 ## Create a New Tag and Release
 
 ```bash
-newtag="v10.0-2025-02-19-qiime2-2026.7"
+newtag="v10.0-2025-02-19-qiime2-2026.10"
 
 gh release create ${newtag} \
   --draft \
   --latest \
   -F release_notes_newest.md \
-  --title "UNITE v10.0 2025-02-19 for qiime2-2026.7"
+  --title "UNITE v10.0 2025-02-19 for qiime2-2026.10"
 ```
 
 ## Push Files to this New Release
@@ -49,7 +49,7 @@ gh release upload ${newtag} --clobber results/report.html
 Note, when using a wildcard like `results/*.qza`, if any of the files already exist, then the full command will fail.
 
 ```bash
-gh release upload ${newtag} results/classifier/unite_*2026.7.qza
+gh release upload ${newtag} results/classifier/unite_*2026.10.qza
 
 gh release upload ${newtag} results/eval_unite_ver2025-02-19.qzv
 ```

@@ -170,7 +170,11 @@ process DEREPLICATE {
 process FIT_CLASSIFIER_NB {
     label 'qiime2'
     cpus 2
-    memory { 900 * sequences.size() }
+    // Container VMs enforce memory (pixi did not), so 900 got OOM killed.
+    // Max peak_rss was 1066x seqs size: 16.5 GB for 16622335 bytes, 97_eukaryotes
+    // in results/trace_2026-10-25_11-58.tsv. Capped to fit a 24 GB Mac.
+    memory { Math.min(1100 * sequences.size(), 23.GB.toBytes()) }
+    maxForks 1
     tag "mem: ${task.memory} for seqs: ${sequences.size()}"
 
     publishDir "${params.outdir}/classifier", mode: 'copy', saveAs: { filename ->
@@ -203,7 +207,9 @@ process FIT_CLASSIFIER_NB {
 process RE_CLASSIFY_SKLEARN {
     label 'qiime2'
     cpus 2
-    memory { 100 * classifier.size() }
+    // Max peak_rss was 77.5x classifier size: 6.2 GB for 85876258 bytes, 97_fungi
+    // in results/trace_2026-10-25_10-40.tsv
+    memory { 85 * classifier.size() }
     tag "mem: ${task.memory} for classifier: ${classifier.size()}"
 
     publishDir "${params.outdir}/evaluation", mode: 'copy', saveAs: { filename ->
