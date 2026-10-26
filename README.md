@@ -38,7 +38,7 @@ pixi global install  -c conda-forge -c bioconda nextflow openjdk=17
 
 ### Apple container (default)
 
-Qiime2 runs from the official Docker image using [Apple container](https://docs.seqera.io/nextflow/container/apple-container), so we get memory stats on macOS ([#20](https://github.com/colinbrislawn/unite-train/issues/20)). Needs Apple silicon.
+Qiime2 runs from the official [qiime2-workshop:2026.10](https://quay.io/qiime2/qiime2-workshop:2026.10) image using [Apple container](https://docs.seqera.io/nextflow/container/apple-container), so we get memory stats on macOS ([#20](https://github.com/colinbrislawn/unite-train/issues/20)). Needs Apple silicon.
 
 - Install [Apple container](https://github.com/apple/container/releases)
 
